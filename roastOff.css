@@ -1,0 +1,180 @@
+html {
+    height: 100%;
+}
+
+
+body {
+
+    height: 100%;
+    margin: 0;
+
+
+    background-image: url("fireball-422746_1920.jpg");
+
+    background-size:cover
+
+}
+
+#HeaderMenu{
+
+}
+
+#TitleFrontPage{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 100px; 
+    font-style: bold;
+}
+
+#Loading1{
+    text-align: left;
+    vertical-align: middle;
+    font-size: 70px; 
+    font-style: bold;
+    margin-top: -115px;
+}
+
+#JoinCode{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 50px; 
+    font-style: bold;
+    margin-top: 20px;
+}
+ 
+#mobileWebsite{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px; 
+    font-style: bold;
+    margin-top: 30px;
+}
+#RoundOne{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 90px; 
+    font-style: bold;
+    height: 525px; /*set longer in order to space sickBurn lower*/
+
+}
+
+#counter{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 90px; 
+    font-style: bold;
+    height: 325px;
+}
+#sickBurn{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px; 
+    font-style: bold;
+    height: 60px;
+}
+
+#roastText{
+    text-align: left;
+    vertical-align: middle;
+    font-size: 40px; 
+    font-style: bold;
+    height: 60px;
+}
+
+#roundWinner{
+    text-align: middle;
+    vertical-align: middle;
+    font-size: 80px; 
+    font-style: bold;
+    height: 60px;
+}
+#roundName1{
+    text-align: middle;
+    vertical-align: middle;
+    font-size: 80px; 
+    font-style: bold;
+    height: 60px;
+}
+
+#gameWinner{
+    text-align: middle;
+    vertical-align: middle;
+    font-size: 80px; 
+    font-style: bold;
+    height: 60px;
+}
+#gameName1{
+    text-align: middle;
+    vertical-align: middle;
+    font-size: 80px; 
+    font-style: bold;
+    height: 60px;
+}
+
+#pictureFrame{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 80px; 
+    font-style: bold;
+
+    height: 200pt;
+}
+
+
+#SignJoinBlock
+
+}
+
+.row.extra-bottom-padding{
+   margin-bottom: 20px;
+}
+
+.title.extra-bottom-padding{
+   margin-bottom: 170px;
+}
+
+.signInButton.extra-bottom-padding{
+   margin-bottom: 20px;
+}
+
+
+#galleryHeader{
+    background-color: green;
+}
+
+#loginBlock{
+    margin-top: -100px;
+    height: 425px;
+}
+
+
+#addPicButton{
+
+    
+    
+}
+
+
+#picToDisplay{
+
+    background-color: orange;
+    height: 200px;
+
+
+}
+
+#picToDisplayLabel{
+
+
+    height: 200px;
+
+}
+
+#checkboxToRandomize{
+
+    height: 200px;
+
+    
+}
+
+
