@@ -59,30 +59,34 @@ function startPage (id) {
 
   var loginField;
   //add button in nav bar to go back to main 
-  loginField = '<div id="TitleFrontPage" class="title extra-bottom-padding">' +
-      '<font >ROAST OFF!</font>' +
-    '</div>' +
-    '<div id="SignJoinBlock">' +
-      '<div class="row " >' +
-        '<div class="col-md-4"></div>' +
-        '<div class="col-md-4" id="Loading1">' +
-          '<font >Loading</font>' +
-        '</div>' +
-        '<div class="col-md-4"></div>' +
-      '</div>' +
-      '<div class="row">' +
-        '<div class="col-md-3"></div>' +
-        '<div class="col-md-6" id="JoinCode">' +
-          '<font >Join Code: 864AA2</font>' +
-        '</div>' +
-        '<div class="col-md-3"></div>'+
-        '<div class="col-md-1"></div>' +
-        '<div class="col-md-10" id="mobileWebsite">' +
-          '<font >Mobile go to www.kingsnackmangames.com/ROASTOFF</font>' +
-        '</div>' +
-        '<div class="col-md-1"></div>'+
-      '</div>' +
-    '</div>';
+  loginField = '<div class="row " >' +
+                  '<div id="TitleFrontPage" class="title extra-bottom-padding">' +
+                    'ROAST OFF!' +
+                  '</div>' +
+                '</div>' +//1st row ends
+                '<div class="row " >' +
+                  '<div id="SignJoinBlock">' +
+                    '<div class="col-md-4"></div>' +
+                    '<div class="col-md-4" id="Loading1">' +
+                      'Loading' +
+                    '</div>' +
+                    '<div class="col-md-4"></div>' +
+                '</div>' +//2nd row ends
+                '<div class="row">' +
+                  '<div class="col-md-3"></div>' +
+                  '<div class="col-md-6" id="JoinCode">' +
+                    'Join Code: '+ '864AA2' +
+                  '</div>' +
+                  '<div class="col-md-3"></div>'+ 
+                '</div>'  + //3rd row ends  
+               '<div class="row">' +
+                  '<div class="col-md-1"></div>' +
+                  '<div class="col-md-10 rounded" id="mobileWebsite">' +
+                    'Mobile go to '+'www.kingsnackmangames.com/ROASTOFF' +
+                  '</div>' +
+                  '<div class="col-md-1"></div>'
+                '</div>'; //4th row ends
+                
 
     var $jloginField = $(loginField);
   $("body").append($jloginField);
@@ -137,22 +141,18 @@ function clearDivs() {
   $( "div" ).remove();
 
   var loginField;
-  //add button in nav bar to go back to main 
-  loginField = //'<div id="RoundOne" >'+
-                //'<font >Round One!</font>'+
-              //'</div>'+
-              '<div class="col-md-4" id="RoundOne">'+
+
+  loginField ='<div class="col-md-4" id="RoundOne">'+
                 '<font >ROUND ' + roundCounter + '</font>'+
-              '</div>' + //open and close 3 spacer
-               '<div class="col-md-4" id="RoastPicHere">'+ //open 6 block
+              '</div>' + 
+               '<div class="col-md-4" id="RoastPicHere">'+ 
                '<div id="pictureFrame" >'+
                '<img src=' + "Nilas.jpg" +' style="width:350px;" hspace="20">'+
-              '</div>'+ //close pictureframe
-              '</div>'+ //close 6 block
+              '</div>'+ 
+              '</div>'+ 
               '<div class="col-md-4" id="counter">'+
-                //'<font >90</font>'+
               '</div>'+
-                '<div class="col-md-12" id="sickBurn" >Use your phone to enter your sick burn!</div>'; // open and close 3 spacer
+                '<div class="col-md-12 rounded" id="sickBurn" >Use your phone to enter your sick burn!</div>'; 
 
   var $jloginField = $(loginField);
  $("body").append($jloginField);
@@ -209,7 +209,7 @@ var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
   loginField = '<div class="col-md-4" id="RoundOne">'+
                 '<img src=' + "Nilas.jpg" +' style="width:350px;" hspace="20">'+
               '</div>' +
-               '<div class="col-md-8" id="roastText">'+ 
+               '<div class="col-md-7 rounded" id="roastText">'+ 
                roast1+
                '</div>'; 
 
@@ -231,7 +231,9 @@ var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
 function showRoundWinner (id) {
   $( "div" ).remove();
 
+
   var round = "";
+  var points = 150;
 
   if(roundCounter == 1){
     round = "Round One";
@@ -246,14 +248,27 @@ function showRoundWinner (id) {
 
   var loginField;
   //add button in nav bar to go back to main 
-  loginField = '<div class="col-md-8" id="roundName1">'+ 
-               round+
+  loginField = '<div class="row " >' +
+                 '<div class="col-md-2">'+ '</div>' +
+                 '<div class="col-md-8" id="roundName1">'+ 
+                    round+
+                 '</div>'+
+                 '<div class="col-md-2">'+ '</div>' + 
+              '</div>'+//row 1 end
+              '<div class="row " >' +
+                '<div class="col-md-2">'+ '</div>' + 
+                '<div class="col-md-8" id="roundWinner">'+ 
+                  "kingsnackman Wins!"+
+                '</div>'+ 
+                '<div class="col-md-2" >'+ '</div>'+
               '</div>'+ 
-              '<div class="col-md-2">'+ '</div>' + 
-               '<div class="col-md-8" id="roundWinner">'+ 
-               "kingsnackman Wins!"+
-              '</div>'+ 
-              '<div class="col-md-2" id="counter">'+ '</div>';
+              '<div class="row " >' +
+                '<div class="col-md-2">'+ '</div>' + 
+                '<div class="col-md-8" id="pointsLabel">'+ 
+                  "+"+"150" +"POINTS!"+
+                '</div>'+ 
+                '<div class="col-md-2" >'+ '</div>'+
+              '</div>';
 
   var $jloginField = $(loginField);
  $("body").append($jloginField);
@@ -276,6 +291,7 @@ function endScreen (id) {
 
   var loginField;
   //add button in nav bar to go back to main 
+  /*
   loginField = '<div class="row">'+
                     '<div class="col-md-8" id="gameName1">'+ 
                        "WINNER!"+
@@ -292,6 +308,34 @@ function endScreen (id) {
                     '</div>'+
                     '<div class="col-md-3"></div>' + 
                 '</div>'  ;
+                */
+
+  loginField = '<div class="row " >' +
+                 '<div class="col-md-2">'+ '</div>' +
+                 '<div class="col-md-8" id="gameName1">'+ 
+                       "WINNER!"+
+                '</div>'+ 
+                 '<div class="col-md-2">'+ '</div>' + 
+              '</div>'+//row 1 end
+              '<div class="row " >' +
+                '<div class="col-md-2">'+ '</div>' + 
+                '<div class="col-md-8" id="gameWinner">'+ "kingsnackman"+"!"+'</div>'+ 
+                '<div class="col-md-2" >'+ '</div>'+
+              '</div>'+ 
+              '<div class="row " >' +
+                '<div class="col-md-2">'+ '</div>' + 
+                '<div class="col-md-8" id="pointsLabel">'+ 
+                  "+"+"150" +"POINTS!"+
+                '</div>'+ 
+                '<div class="col-md-2" >'+ '</div>'+
+                '</div>'+
+                '<div class="row">'+ //button
+                    '<div class="col-md-3"></div>' + 
+                    '<div class="col-md-6">'+ 
+                        '<button type="button" class="btn btn-lg btn-block btn-success" id="newGameButton" onclick="startPage(this)">Start New Game</button>'+
+                    '</div>'+
+                    '<div class="col-md-3"></div>' + 
+                '</div>' ;
 
   var $jloginField = $(loginField);
  $("body").append($jloginField);

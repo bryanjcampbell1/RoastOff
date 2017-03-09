@@ -48,7 +48,13 @@ body {
     font-size: 30px; 
     font-style: bold;
     margin-top: 30px;
+    background-color: #5cb85c;
 }
+
+.rounded {
+  border-radius: 10px;
+}
+
 #RoundOne{
     text-align: center;
     vertical-align: middle;
@@ -71,6 +77,7 @@ body {
     font-size: 40px; 
     font-style: bold;
     height: 60px;
+    background-color: #5cb85c;
 }
 
 #roastText{
@@ -78,37 +85,68 @@ body {
     vertical-align: middle;
     font-size: 40px; 
     font-style: bold;
-    height: 60px;
+    border-radius: 25px;
+    background: #5cb85c;
+    padding: 20px; 
+    height: 500px;
 }
 
 #roundWinner{
-    text-align: middle;
+    text-align: center;
     vertical-align: middle;
     font-size: 80px; 
     font-style: bold;
     height: 60px;
+    margin-top: 40px;
 }
-#roundName1{
-    text-align: middle;
+
+#pointsLabel{
+    text-align: center;
     vertical-align: middle;
     font-size: 80px; 
     font-style: bold;
     height: 60px;
+    margin-top: 40px;
+}
+
+#pointsLabel1{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 80px; 
+    font-style: bold;
+    height: 60px;
+    margin-top: 40px;
+} 
+
+#roundName1{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 80px; 
+    font-style: bold;
+    height: 60px;
+    margin-top: 40px;
 }
 
 #gameWinner{
-    text-align: middle;
+    text-align: center;
     vertical-align: middle;
     font-size: 80px; 
     font-style: bold;
     height: 60px;
+    margin-top: 40px;
 }
 #gameName1{
-    text-align: middle;
+    text-align: center;
     vertical-align: middle;
     font-size: 80px; 
     font-style: bold;
     height: 60px;
+    margin-top: 40px;
+}
+
+#newGameButton{
+    
+    margin-top: 140px;
 }
 
 #pictureFrame{
