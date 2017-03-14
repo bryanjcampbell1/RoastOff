@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Roast Off!</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="mobileRoast.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="mobileRoast.js"></script>
+    <script type="text/javascript" src="compatibility.js"></script>
+
+    <div class="row " >  
+      <div class="col-md-1 col-sm-1 col-xs-1"></div>
+      <div class="col-md-10 col-sm-10 col-xs-10" id="title" >ROAST OFF!</div>
+      <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    </div>  <!-- close row 1 -->
+    <div class="row " >  
+      <div class="col-md-1 col-sm-1 col-xs-1"></div>
+      <div id="signInDiv" class="col-md-10 col-sm-10 col-xs-10">
+        <form id="sign_In_Form">
+            <div class="form-group">
+                <input type="text" name="username"  class="form-control"  id="usernameTextField" placeholder="Create Username!" >
+            </div>
+            <div class="form-group">
+                <input type="text" name="password"  class="form-control"  id="passwordTextField" placeholder="Enter Join Code!" >
+            </div>
+       </form>
+       <button type="button" class="btn btn-lg btn-block btn-success" onclick="signInUser(this)">Join Game!</button>
+       <div class="col-md-1 col-sm-1 col-xs-1"></div>
+      </div>  <!-- close id="signInDiv" -->
+    </div>  <!-- close row 2 -->
+
+
+  </body>
+</html>
+
+
+  </body>

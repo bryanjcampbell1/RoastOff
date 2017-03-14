@@ -11,7 +11,12 @@ body {
 
     background-image: url("fireball-422746_1920.jpg");
 
-    background-size:cover
+    background-size: cover;
+
+    text-align: left;
+    vertical-align: middle;
+    font-size: 40px; 
+    font-style: bold;
 
 }
 

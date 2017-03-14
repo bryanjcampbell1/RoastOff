@@ -108,8 +108,8 @@ function startPage (id) {
 //Q: Do i need to shut off the timer "myVar "above?
 //where can I put --> clearInterval(myVar);
 
-setTimeout(clearDivs, 6000);
 
+setTimeout(clearDivs, 6000);
   
 }
 

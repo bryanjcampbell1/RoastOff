@@ -1,0 +1,177 @@
+html {
+    height: 100%;
+}
+
+
+body {
+
+    height: 100%;
+    margin: 0;
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(-90deg, rgba(136,211,255,1), rgba(2,188,194,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(-90deg, 02BCC2, 88D3E1); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(-90deg, 02BCC2, 88D3E1); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(-90deg, 02BCC2, 88D3E1); /* Standard syntax */
+
+    background-size:cover
+
+}
+
+#signInDiv{
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 30px;
+}
+
+#title{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 60px; 
+    font-style: bold;
+    margin-top: 30px;
+}
+
+#addPictureButton{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 60px; 
+    font-style: bold;
+    margin-top: 90px;
+
+
+}
+
+
+
+#TitleFrontPage{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 60px; 
+    font-style: bold;
+    margin-top: 30px;
+
+}
+
+#orLabel{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 60px; 
+    font-style: bold;
+    margin-top: 60px;
+
+}
+
+#GoToLoadButton{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 60px; 
+    font-style: bold;
+    margin-top: 60px;
+
+}
+
+#Loading1{
+    text-align: left;
+    vertical-align: middle;
+    font-size: 50px; 
+    font-style: bold;
+    margin-top: 30px;
+
+}
+
+#PictureHere{
+    text-align: left;
+    vertical-align: middle;
+    font-size: 50px; 
+    font-style: bold;
+    margin-top: 30px;
+    background-color: red;
+    height: 225px;
+
+}
+
+#TypeRoastHere{
+    text-align: left;
+    vertical-align: middle;
+    font-size: 50px; 
+    font-style: bold;
+    margin-top: 30px;
+
+}
+
+#roundRanking{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 50px; 
+    font-style: bold;
+    margin-top: 30px;
+
+}
+
+
+#roundVotes{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 50px; 
+    font-style: bold;
+    margin-top: 30px;
+
+}
+
+#roundPoints{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 50px; 
+    font-style: bold;
+    margin-top: 30px;
+
+}
+
+
+
+
+
+
+#galleryHeader{
+    background-color: green;
+}
+
+#thumbnailGalleryView{
+
+    background-color: yellow; 
+    height: 325px;
+
+}
+
+#addPicButton{
+
+    
+    
+}
+
+
+#picToDisplay{
+
+    background-color: orange;
+    height: 200px;
+
+
+}
+
+#picToDisplayLabel{
+
+
+    height: 200px;
+
+}
+
+#checkboxToRandomize{
+
+    height: 200px;
+
+    
+}
