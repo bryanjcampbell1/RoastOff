@@ -1,9 +1,9 @@
 <?php
 
-$servername = "mysql.seemeclothing.xyz";
-$username = "snackman";
-$password = "1Lessday!";
-$dbname = "seemedb";
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "roastDB";
 
 $db = new mysqli($servername, $username, $password, $dbname);
 

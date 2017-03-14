@@ -44,7 +44,7 @@ function signInButton (id) {
                    '</form>'+
                    '<div class="col-md-3"></div>;' + //open and close 3 spacer
                '<div class="col-md-6">'+ //open 6 block
-                   '<button type="button" class="btn btn-lg btn-block btn-success" onclick="startPage(this)">Sign In</button>'+
+                   '<button type="button" class="btn btn-lg btn-block btn-success" onclick="signInUser(this)">Sign In</button>'+
                    '</form>'+'<div class="col-md-3"></div>' + 
                 '</div>'+ //close login block
                 '</div>'+ //close 6 block
@@ -390,7 +390,6 @@ function Join (id) {
 function signInUser(id){
   var u = $( "#usernameTextField").val();
   var p = $( "#passwordTextField").val();
-  var e = $( "#emailTextField").val();
 
   //query database for user data and check for match
   var xmlhttp = new XMLHttpRequest();
@@ -398,18 +397,16 @@ function signInUser(id){
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
               var foundUser =  xmlhttp.responseText;
-              //alert(foundUser);
               
               if (foundUser == "TRUE" ) {
-                //usernameString = u;
-               // userSignedIn = 1;
+                usernameString = u;
+                userSignedIn = 1;
 
-               // showGalleryPage();
-               alert("all good");
+                showGalleryPage();
                 
                 }
                 else{
-                 alert("problem signing up");
+                 alert("Username and Password do not match");
                 }
               
               }
@@ -418,7 +415,7 @@ function signInUser(id){
               }
             
         };
-        xmlhttp.open("GET", "seeMeSign.php?u=" + u + "&p=" + p, true);
+        xmlhttp.open("GET", "SignIn.php?u=" + u + "&p=" + p, true);
         xmlhttp.send();
       
 }
