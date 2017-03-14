@@ -369,11 +369,11 @@ function Join (id) {
                         '<input type="text" name="password"  class="form-control"  id="passwordTextField" placeholder="Password" >'+
                     '</div>'+
                     '<div class="form-group">'+
-                        '<input type="text" name="emailTextFieldSU"  class="form-control"  id="passwordTextField" placeholder="Email" >'+
+                        '<input type="text" name="emailTextFieldSU"  class="form-control"  id="emailTextField" placeholder="Email" >'+
                     '</div>'+
                    '<div class="col-md-3"></div>;' + //open and close 3 spacer
                '<div class="col-md-6">'+ //open 6 block
-                   '<button type="button" class="btn btn-lg btn-block btn-success" onclick="signInUser(this)">Join</button>'+
+                   '<button type="button" class="btn btn-lg btn-block btn-success" onclick="signUpUser(this)">Join</button>'+
                    '</form>'+'<div class="col-md-3"></div>;' + 
                 '</div>'+ //close login block
                 '</div>'+ //close 6 block
@@ -390,6 +390,7 @@ function Join (id) {
 function signInUser(id){
   var u = $( "#usernameTextField").val();
   var p = $( "#passwordTextField").val();
+  var e = $( "#emailTextField").val();
 
   //query database for user data and check for match
   var xmlhttp = new XMLHttpRequest();
@@ -400,14 +401,15 @@ function signInUser(id){
               //alert(foundUser);
               
               if (foundUser == "TRUE" ) {
-                usernameString = u;
-                userSignedIn = 1;
+                //usernameString = u;
+               // userSignedIn = 1;
 
-                showGalleryPage();
+               // showGalleryPage();
+               alert("all good");
                 
                 }
                 else{
-                 alert("Username and Password do not match");
+                 alert("problem signing up");
                 }
               
               }
@@ -416,7 +418,7 @@ function signInUser(id){
               }
             
         };
-        xmlhttp.open("GET", "seeMeSignIn.php?u=" + u + "&p=" + p, true);
+        xmlhttp.open("GET", "seeMeSign.php?u=" + u + "&p=" + p, true);
         xmlhttp.send();
       
 }
@@ -642,16 +644,16 @@ jQuery.ajax(opts);
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Sign Up User --> this will be removed. Just a way for registering a few accounts for now.
 /////////////////////////////////////////////////////////////////////////////////////////////
-/*
+
 function signUpUser(id){
-  alert("signUp button works");
 
 
   //get username and password from form
   var u = $( "#usernameTextField").val();
   var p = $( "#passwordTextField").val();
-  //var e = $( "#emailTextFieldSU").val();
+  var e = $( "#emailTextField").val();
 
+    alert(e);
 
   //query database for user data and check for match
   var xmlhttp = new XMLHttpRequest();
@@ -664,8 +666,37 @@ function signUpUser(id){
               
             }
         };
-        xmlhttp.open("POST", "seeMeSignUp.php?u=" + u + "&p=" + p, true);
+        xmlhttp.open("POST", "signUp.php?u=" + u + "&p=" + p + "&e=" + e, true);
         xmlhttp.send();
+
+}
+/*
+function submitNewEntry(id) {
+  var tC = $( "#textContent").val();
+  var yT = $( "#youtubeString").val();
+  var topicNameWithNoSpaces = linkName.replace(/\s/g, '');
+  //var e = $( "#emailTextFieldSU").val();
+
+
+  //query database for user data and check for match
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              var foundUser =  xmlhttp.responseText;
+              //prit output from php? Uncomment below
+              alert(foundUser);
+              getPosts(linkName);
+
+
+
+            }
+        };
+        xmlhttp.open("POST", "postEntry.php?tC=" + tC + "&yT=" + yT + "&tN=" + topicNameWithNoSpaces, true);
+        xmlhttp.send();
+
+
+
 
 }
 */
