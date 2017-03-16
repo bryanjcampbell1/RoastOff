@@ -13,6 +13,8 @@ var randomValue = "";
 
 var roundCounter = 1;
 
+var joinCode;
+
 //var should be set from an array of submitted roasts
 
 
@@ -31,7 +33,7 @@ function signInButton (id) {
   loginField = '<div id="TitleFrontPage" class="title extra-bottom-padding">'+
                 '<font >Sign In!</font>'+
               '</div>'+
-              '<div class="col-md-3"></div>;' + //open and close 3 spacer
+              '<div class="col-md-3"></div>' + //open and close 3 spacer
                '<div class="col-md-6">'+ //open 6 block
                 '<div id="loginBlock" >'+ //open login block
                   '<form id="sign_In_Form">'+
@@ -42,7 +44,7 @@ function signInButton (id) {
                         '<input type="text" name="password"  class="form-control"  id="passwordTextField" placeholder="Password" >'+
                     '</div>'+
                    '</form>'+
-                   '<div class="col-md-3"></div>;' + //open and close 3 spacer
+                   '<div class="col-md-3"></div>' + //open and close 3 spacer
                '<div class="col-md-6">'+ //open 6 block
                    '<button type="button" class="btn btn-lg btn-block btn-success" onclick="signInUser(this)">Sign In</button>'+
                    '</form>'+'<div class="col-md-3"></div>' + 
@@ -52,7 +54,106 @@ function signInButton (id) {
 
   var $jloginField = $(loginField);
  $("body").append($jloginField);
+
+//hen signInUser is triggered 
+//1) php runs and checks username and pasword
+//2) if (success) --> take user to a Welcome screen with a "start game" button
+//3)
+
+
 }
+
+function signInUser(id){
+  var u = $( "#usernameTextField").val();
+  var p = $( "#passwordTextField").val();
+
+  //query database for user data and check for match
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              var foundUser =  xmlhttp.responseText;
+              
+              if (foundUser == "TRUE" ) {
+                usernameString = u;
+                userSignedIn = 1;
+
+                welcomePage();
+               // startPage ();
+                
+                }
+                else{
+                 alert("Username and Password do not match");
+                }
+              
+              }
+              else{
+                //alert("Could not connect to account. Try again later.");
+              }
+            
+        };
+        xmlhttp.open("GET", "SignIn.php?u=" + u + "&p=" + p, true);
+        xmlhttp.send();
+      
+}
+
+
+function welcomePage (id) {
+  $( "div" ).remove();
+
+  var loginField;
+  
+  loginField = '<div class="row " >' +
+                  '<div id="TitleFrontPage" class="title extra-bottom-padding">' +
+                    'ROAST OFF!' +
+                  '</div>' +
+                '</div>' +//1st row ends
+                '<div class="row " >' +
+                    '<div class="col-md-4"></div>' +
+                    '<div class="col-md-4">' +
+                      '<button type="button" class="btn btn-success btn-lg btn-block signInButton extra-bottom-padding"  onclick="createGame(this)">Start Game</button>'+
+                    '</div>'+
+                    '<div class="col-md-4"></div>' +
+                '</div>'; 
+
+    var $jloginField = $(loginField);
+  $("body").append($jloginField);
+
+}
+
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+function createGame (id) {
+  var gameId = makeid();
+  joinCode = gameId;
+  //alert(gameId);
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              var foundUser =  xmlhttp.responseText;
+              //prit output from php? Uncomment below
+              //alert(foundUser);
+              startPage();
+              
+            }
+        };
+        xmlhttp.open("POST", "createNewGame.php?g=" + gameId, true);
+        xmlhttp.send();
+
+}
+
+
+
 
 function startPage (id) {
   $( "div" ).remove();
@@ -75,7 +176,7 @@ function startPage (id) {
                 '<div class="row">' +
                   '<div class="col-md-3"></div>' +
                   '<div class="col-md-6" id="JoinCode">' +
-                    'Join Code: '+ '864AA2' +
+                    'Join Code: '+ joinCode +
                   '</div>' +
                   '<div class="col-md-3"></div>'+ 
                 '</div>'  + //3rd row ends  
@@ -105,8 +206,6 @@ function startPage (id) {
 
 //replace timed segue by button
 
-//Q: Do i need to shut off the timer "myVar "above?
-//where can I put --> clearInterval(myVar);
 
 
 setTimeout(clearDivs, 6000);
@@ -384,12 +483,15 @@ function Join (id) {
 
 }
 
+function signUpUser(id){
 
 
-
-function signInUser(id){
+  //get username and password from form
   var u = $( "#usernameTextField").val();
   var p = $( "#passwordTextField").val();
+  var e = $( "#emailTextField").val();
+
+    alert(e);
 
   //query database for user data and check for match
   var xmlhttp = new XMLHttpRequest();
@@ -397,33 +499,14 @@ function signInUser(id){
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
               var foundUser =  xmlhttp.responseText;
+              //prit output from php? Uncomment below
+              alert(foundUser);
               
-              if (foundUser == "TRUE" ) {
-                usernameString = u;
-                userSignedIn = 1;
-
-                showGalleryPage();
-                
-                }
-                else{
-                 alert("Username and Password do not match");
-                }
-              
-              }
-              else{
-                //alert("Could not connect to account. Try again later.");
-              }
-            
+            }
         };
-        xmlhttp.open("GET", "SignIn.php?u=" + u + "&p=" + p, true);
+        xmlhttp.open("POST", "signUp.php?u=" + u + "&p=" + p + "&e=" + e, true);
         xmlhttp.send();
-      
-}
 
-
-function showGalleryPage (id) {
-  $( "div" ).remove();
-  getPics();
 }
 
 
@@ -638,65 +721,7 @@ jQuery.ajax(opts);
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-//Sign Up User --> this will be removed. Just a way for registering a few accounts for now.
-/////////////////////////////////////////////////////////////////////////////////////////////
 
-function signUpUser(id){
-
-
-  //get username and password from form
-  var u = $( "#usernameTextField").val();
-  var p = $( "#passwordTextField").val();
-  var e = $( "#emailTextField").val();
-
-    alert(e);
-
-  //query database for user data and check for match
-  var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-              var foundUser =  xmlhttp.responseText;
-              //prit output from php? Uncomment below
-              alert(foundUser);
-              
-            }
-        };
-        xmlhttp.open("POST", "signUp.php?u=" + u + "&p=" + p + "&e=" + e, true);
-        xmlhttp.send();
-
-}
-/*
-function submitNewEntry(id) {
-  var tC = $( "#textContent").val();
-  var yT = $( "#youtubeString").val();
-  var topicNameWithNoSpaces = linkName.replace(/\s/g, '');
-  //var e = $( "#emailTextFieldSU").val();
-
-
-  //query database for user data and check for match
-  var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-              var foundUser =  xmlhttp.responseText;
-              //prit output from php? Uncomment below
-              alert(foundUser);
-              getPosts(linkName);
-
-
-
-            }
-        };
-        xmlhttp.open("POST", "postEntry.php?tC=" + tC + "&yT=" + yT + "&tN=" + topicNameWithNoSpaces, true);
-        xmlhttp.send();
-
-
-
-
-}
-*/
 
 //Notes
 //RandCheck checked then select a pic from gallery ---> checkbox needs to uncheck
