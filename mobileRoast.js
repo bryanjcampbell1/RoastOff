@@ -15,10 +15,28 @@ var roundCounter = 1;
 
 function signInUser(id){
   var u = $( "#usernameTextField").val();
-  var p = $( "#passwordTextField").val();
+  var g = $( "#passwordTextField").val();
 
   getPics();
+
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              var foundUser =  xmlhttp.responseText;
+              //prit output from php? Uncomment below
+              alert(foundUser);
+              //getPosts(linkName);
+
+
+
+            }
+        };
+        xmlhttp.open("POST", "joinGame.php?u=" + u + "&g=" + g, true);
+        xmlhttp.send();
+
 }
+
 
 function imageClicked (path) {
 
