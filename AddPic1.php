@@ -38,6 +38,8 @@ if (move_uploaded_file($file['tmp_name'], $path)) {
     //echo "Move failed. Possible duplicate?";
 }
 
+
+//$u=  $_REQUEST["u"];
 $g=  $_REQUEST["g"];
 
 $player1;
@@ -58,6 +60,13 @@ $sql1 = "SELECT * FROM  `GameObject` WHERE `gameID` = '".$g."'";
 
 
 while($row = $result->fetch_assoc()){
+	/*
+	$player1 =  $row['player1'] ;
+	$player2 =  $row['player2'] ;
+	$player3 =  $row['player3'] ;
+	$player4 =  $row['player4'] ;
+	$player5 =  $row['player5'] ;
+*/
 	$player1 =  $row['picturePath1'] ;
 	$player2 =  $row['picturePath2'] ;
 	$player3 =  $row['picturePath3'] ;
@@ -106,8 +115,10 @@ while($row = $result->fetch_assoc()){
 
 } //close while
 
+//$playerString = "player" . $playerNumber;
 $playerString = "picturePath" . $playerNumber;
 
+//$sql = "UPDATE GameObject SET ".$playerString." = '88888ggh' WHERE gameID = '".$g."'";
 $sql = "UPDATE GameObject SET ".$playerString." = '" .$path. "' WHERE gameID = '".$g."'";
 
 if ($conn->query($sql) === TRUE) {

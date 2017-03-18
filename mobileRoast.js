@@ -12,21 +12,24 @@ randomArray = [];
 var randomValue = "";
 
 var roundCounter = 1;
+var joinID;
 
 function signInUser(id){
   var u = $( "#usernameTextField").val();
   var g = $( "#passwordTextField").val();
 
-  getPics();
-
   var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
+              usernameString = u;
+
               var foundUser =  xmlhttp.responseText;
-              //prit output from php? Uncomment below
-              alert(foundUser);
-              //getPosts(linkName);
+              
+              //alert(foundUser);
+              //add error if more than 5 players
+              page1();
+              joinID = g;
 
 
 
@@ -37,47 +40,9 @@ function signInUser(id){
 
 }
 
-
-function imageClicked (path) {
-
-  var img = '<img src=' + path + ' style="width:100px;height:100px;">';
+function page1 (id){
   
-  $("#picToDisplay img:last-child").remove();
-  var $jImage = $(img);
-  $("#picToDisplay").append($jImage);
-
-  var str = path;
-  str = str.substring(str.indexOf("keepPicsHere") );
-  //alert(str);
-
-  var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              //do nothing
-              var xmlhttp2 = new XMLHttpRequest();
-                xmlhttp2.onreadystatechange = function() {
-               if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
-
-
-              }
-            };
-            xmlhttp2.open("POST", "setDisplayPick2.php?userame=" + usernameString + "&path=" + str, true);
-            xmlhttp2.send();
-
-            }
-        };
-        xmlhttp.open("POST", "setDisplayPick.php?userame=" + usernameString + "&path=" + path, true);
-        xmlhttp.send();
-        //this php file mustt
-
-}  
-
-
-function getPics (id){
-  var u = usernameString;
   $( "div" ).remove();
-
-
 
   showGalleryHtml = '<div class="row " >' +
                       '<div class="col-md-1 col-sm-1 col-xs-1">'+ '</div>' +
@@ -107,11 +72,67 @@ function getPics (id){
  
 }
 
-
 function addGamePic(id){
+  $( "div" ).remove();
+
+  var showGalleryHtml;
+             
+  showGalleryHtml = '<div id="addPicButton" class="col-lg-2 col-md-2 col-sm-2 col-xs-12  col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">'+
+                      '<input type="file" id="file">'+
+                      '<button type="button" class="btn btn-lg btn-block btn-success" onclick="selectPic(this)">Submit</button>'+
+                    '</div>';
+
+                    $("#file").change(function() { selectFileClick(); });
+
+                    var $jshowGalleryHtml = $(showGalleryHtml);
+                    $("body").append($jshowGalleryHtml);
 
 }
+function selectPic (id){
+  //grab file from #file
+  var f = $("#file")[0].files[0];
 
+  var data = new FormData();
+  
+  jQuery.each(jQuery('#file')[0].files, function(i, file) {
+    data.append('file-'+i, file);
+    });
+
+  jQuery.ajax({
+    url: "AddPic.php?g=" + joinID,
+    data: data,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+    success: function(data){
+        //showGalleryPage();
+        //should pop up widow that ask for mor pics or go to game
+    }
+  });
+
+  /* //for older browsers --> use FormData Emulation
+  var opts = {
+    url: 'php/upload.php',
+    data: data,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+    success: function(data){
+        alert(data);
+    }
+};
+if(data.fake) {
+    // Make sure no text encoding stuff is done by xhr
+    opts.xhr = function() { var xhr = jQuery.ajaxSettings.xhr(); xhr.send = xhr.sendAsBinary; return xhr; }
+    opts.contentType = "multipart/form-data; boundary="+data.boundary;
+    opts.data = data.toString();
+}
+jQuery.ajax(opts);
+  */
+
+}
 function goToLoad(id){
   var u = usernameString;
 
@@ -482,5 +503,44 @@ function restart() {
        
 }
 
+function imageClicked (path) {
 
+  var img = '<img src=' + path + ' style="width:100px;height:100px;">';
+  
+  $("#picToDisplay img:last-child").remove();
+  var $jImage = $(img);
+  $("#picToDisplay").append($jImage);
+
+  var str = path;
+  str = str.substring(str.indexOf("keepPicsHere") );
+  //alert(str);
+
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              //do nothing
+              var xmlhttp2 = new XMLHttpRequest();
+                xmlhttp2.onreadystatechange = function() {
+               if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+
+
+              }
+            };
+            xmlhttp2.open("POST", "setDisplayPick2.php?userame=" + usernameString + "&path=" + str, true);
+            xmlhttp2.send();
+
+            }
+        };
+        xmlhttp.open("POST", "setDisplayPick.php?userame=" + usernameString + "&path=" + path, true);
+        xmlhttp.send();
+        //this php file mustt
+
+}  
+//
+
+//
+
+//if more than one user has same username or username is blank---> problems
+//add email verification
+//don allow submission of non png or jpeg files
 
