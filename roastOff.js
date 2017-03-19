@@ -192,6 +192,7 @@ function startPage (id) {
     var $jloginField = $(loginField);
   $("body").append($jloginField);
 
+/*
 
   setTimeout(loadingLabel4, 0);
   setTimeout(loadingLabel1, 1000);
@@ -200,41 +201,41 @@ function startPage (id) {
   setTimeout(loadingLabel4, 4000);
   var myVar = setInterval(myTimer, 4000);  //starts repeated timer
   //setTimeout(clearInterval(myVar), 10000); //check if this stops timer after 10 s
+*/
+
 
 //improvement could be a button that is pressed to segue to start the game
 //instead of a timer
 
 //replace timed segue by button
 
+alert("here");
 
-
-setTimeout(clearDivs, 6000);
-  
+//setTimeout(clearDivs, 6000);
+  setTimeout(chooseGamePics, 60000);
 }
 
-function myTimer() {
-  setTimeout(loadingLabel1, 1000);
-  setTimeout(loadingLabel2, 2000);
-  setTimeout(loadingLabel3, 3000);
-  setTimeout(loadingLabel4, 4000);
-}
 
-function loadingLabel1() {
-  document.getElementById("Loading1").innerHTML = "Loading .";
-}
+function chooseGamePics() {
 
-function loadingLabel2() {
-  document.getElementById("Loading1").innerHTML = "Loading ..";
-}
+alert("chooseGamePics triggered!");
 
-function loadingLabel3() {
-  document.getElementById("Loading1").innerHTML = "Loading ...";
-}
 
-function loadingLabel4() {
-  document.getElementById("Loading1").innerHTML = "Loading";
-}
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
+              var foundUser =  xmlhttp.responseText;
+              //prit output from php? Uncomment below
+              alert(foundUser);
+
+              
+            }
+        };
+        xmlhttp.open("POST", "chooseGamePics.php?g=" + joinCode, true);
+        xmlhttp.send();
+
+}
 
 function clearDivs() {
   $( "div" ).remove();
@@ -697,6 +698,30 @@ function selectPic (id){
     }
   });
 
+
+function myTimer() {
+  setTimeout(loadingLabel1, 1000);
+  setTimeout(loadingLabel2, 2000);
+  setTimeout(loadingLabel3, 3000);
+  setTimeout(loadingLabel4, 4000);
+}
+
+function loadingLabel1() {
+  document.getElementById("Loading1").innerHTML = "Loading .";
+}
+
+function loadingLabel2() {
+  document.getElementById("Loading1").innerHTML = "Loading ..";
+}
+
+function loadingLabel3() {
+  document.getElementById("Loading1").innerHTML = "Loading ...";
+}
+
+function loadingLabel4() {
+  document.getElementById("Loading1").innerHTML = "Loading";
+}
+
   /* //for older browsers --> use FormData Emulation
   var opts = {
     url: 'php/upload.php',
@@ -725,5 +750,7 @@ jQuery.ajax(opts);
 
 //Notes
 //RandCheck checked then select a pic from gallery ---> checkbox needs to uncheck
+
+//joincode should change on a new game
 
 

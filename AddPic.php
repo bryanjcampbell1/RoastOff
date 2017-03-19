@@ -40,12 +40,6 @@ if (move_uploaded_file($file['tmp_name'], $path)) {
 
 $g=  $_REQUEST["g"];
 
-$player1;
-$player2;
-$player3;
-$player4;
-$player5;
-
 $playerNumber;
 
 //get all from gameObject where id matches entry
