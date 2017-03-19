@@ -212,7 +212,7 @@ function startPage (id) {
 alert("here");
 
 //setTimeout(clearDivs, 6000);
-  setTimeout(chooseGamePics, 60000);
+  setTimeout(chooseGamePics, 6000);
 }
 
 

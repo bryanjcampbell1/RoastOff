@@ -57,6 +57,8 @@ while($row = $result->fetch_assoc()){
 	$player9 =  $row['picturePath9'] ;
 	$player10 = $row['picturePath10'] ;
 
+	$pathArray = array($player1, $player2, $player3, $player4, $player5, $player6, $player7, $player8, $player9, $player10);
+
 	//determine first open slot
 	if (strlen($player1) == 0) {
 		$picNumber = 0;
@@ -99,6 +101,12 @@ while($row = $result->fetch_assoc()){
 		do {
 			if ($picNumber == 0){
 				$path = "goofyPeople/" . (string)rand(0, 36) . ".jpg";
+				//check to see if $path can be used to set gamePic1 below
+				$pathArray[0] = $path;
+
+
+
+
 				$sql_a = "UPDATE GameObject SET picturePath1 = '".$path."' WHERE gameID = '".$g."'";
 				
 				if ($conn->query($sql_a) === TRUE) {
@@ -109,6 +117,9 @@ while($row = $result->fetch_assoc()){
 			}
 			elseif ($picNumber == 1) {
 				$path = "goofyPeople/" . (string)rand(0, 36) . ".jpg";
+
+				$pathArray[1] = $path;
+
 				$sql_a = "UPDATE GameObject SET picturePath2 = '".$path."' WHERE gameID = '".$g."'";
 				
 				if ($conn->query($sql_a) === TRUE) {
@@ -119,6 +130,9 @@ while($row = $result->fetch_assoc()){
 			}
 			elseif ($picNumber == 2) {
 				$path = "goofyPeople/" . (string)rand(0, 36) . ".jpg";
+
+				$pathArray[2] = $path;
+
 				$sql_a = "UPDATE GameObject SET picturePath3 = '".$path."' WHERE gameID = '".$g."'";
 				
 				if ($conn->query($sql_a) === TRUE) {
@@ -139,51 +153,30 @@ while($row = $result->fetch_assoc()){
 
 		
 
-		$firstNumber = 1;
-		$secondNumber = 2;
-		$thirdNumber = 3;
+		$firstNumber;
+		$secondNumber;
+		$thirdNumber;
 
 
 		//set first number
-		$firstNumber = rand(0, $picNumber);
+		$firstNumber = rand(0, ($picNumber - 1));
 		
 		//set second number
 		do {
-	   		$secondNumber = rand(0, $picNumber);
+	   		$secondNumber = rand(0, ($picNumber - 1));
 		}
 		while ($firstNumber == $secondNumber); //repeat while first and 2nd number match
 
 		//set third number
 		do {
-	   		$thirdNumber = rand(0, $picNumber);
+	   		$thirdNumber = rand(0, ($picNumber - 1));
 		}
 		while (($firstNumber == $thirdNumber) || ($secondNumber == $thirdNumber) ); //repeat while first and 2nd number match
 
 
-
-
-
-		$firstString  = (string) $firstNumber;
-		$secondString = (string) $secondNumber;
-		$thirdString  = (string) $thirdNumber;
-	/*	
-
-		$firstString  = "'picturePath".(string)$firstNumber."'";
-		$secondString = "'picturePath".(string)$secondNumber."'";
-		$thirdString  = "'picturePath".(string)$thirdNumber."'";
-
-		$gamePic1 = $row[$firstString] ;
-		$gamePic2 = $row[$secondString] ;
-		$gamePic3 = $row[$thirdString] ;
-*/
-
-		
-//sets random numbers
-		
-$gamePic1 = $firstString;	
-$gamePic2 = $secondString;
-$gamePic3 = $thirdString;
-
+$gamePic1 = $pathArray[$firstNumber];
+$gamePic2 = $pathArray[$secondNumber];
+$gamePic3 = $pathArray[$thirdNumber];
 
 
 } //close while
