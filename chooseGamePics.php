@@ -100,7 +100,7 @@ while($row = $result->fetch_assoc()){
 
 		do {
 			if ($picNumber == 0){
-				$path = "goofyPeople/" . (string)rand(0, 36) . ".jpg";
+				$path = "goofyPeople/" . (string)rand(1, 36) . ".jpg";
 				//check to see if $path can be used to set gamePic1 below
 				$pathArray[0] = $path;
 
@@ -116,7 +116,7 @@ while($row = $result->fetch_assoc()){
 				}
 			}
 			elseif ($picNumber == 1) {
-				$path = "goofyPeople/" . (string)rand(0, 36) . ".jpg";
+				$path = "goofyPeople/" . (string)rand(1, 36) . ".jpg";
 
 				$pathArray[1] = $path;
 
@@ -129,7 +129,7 @@ while($row = $result->fetch_assoc()){
 				}
 			}
 			elseif ($picNumber == 2) {
-				$path = "goofyPeople/" . (string)rand(0, 36) . ".jpg";
+				$path = "goofyPeople/" . (string)rand(1, 36) . ".jpg";
 
 				$pathArray[2] = $path;
 

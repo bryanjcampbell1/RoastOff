@@ -209,17 +209,13 @@ function startPage (id) {
 
 //replace timed segue by button
 
-alert("here");
 
 //setTimeout(clearDivs, 6000);
   setTimeout(chooseGamePics, 6000);
 }
 
 
-function chooseGamePics() {
-
-alert("chooseGamePics triggered!");
-
+function chooseGamePics(id) {
 
   var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -227,14 +223,32 @@ alert("chooseGamePics triggered!");
 
               var foundUser =  xmlhttp.responseText;
               //prit output from php? Uncomment below
-              alert(foundUser);
+              //alert(foundUser);
+              getPics();
 
-              
             }
         };
         xmlhttp.open("POST", "chooseGamePics.php?g=" + joinCode, true);
         xmlhttp.send();
+}
 
+function getPics (id){
+
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              var foundUser =  xmlhttp.responseText;
+
+               picsArray  =  $.parseJSON(xmlhttp.responseText);
+
+               clearDivs() ;
+
+            }
+        };
+        xmlhttp.open("GET", "GetPics.php?g=" + joinCode, true);
+        xmlhttp.send();
+        
 }
 
 function clearDivs() {
@@ -242,12 +256,16 @@ function clearDivs() {
 
   var loginField;
 
+  //alert(picsArray[0]);
+  //alert(picsArray[1]);
+  //alert(picsArray[2]);
+
   loginField ='<div class="col-md-4" id="RoundOne">'+
                 '<font >ROUND ' + roundCounter + '</font>'+
               '</div>' + 
                '<div class="col-md-4" id="RoastPicHere">'+ 
                '<div id="pictureFrame" >'+
-               '<img src=' + "Nilas.jpg" +' style="width:350px;" hspace="20">'+
+               '<img src=' + picsArray[roundCounter -1] +' style="width:350px;" hspace="20">'+
               '</div>'+ 
               '</div>'+ 
               '<div class="col-md-4" id="counter">'+
@@ -307,7 +325,7 @@ var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
   var loginField;
   //add button in nav bar to go back to main 
   loginField = '<div class="col-md-4" id="RoundOne">'+
-                '<img src=' + "Nilas.jpg" +' style="width:350px;" hspace="20">'+
+                '<img src=' + picsArray[roundCounter -1] +' style="width:350px;" hspace="20">'+
               '</div>' +
                '<div class="col-md-7 rounded" id="roastText">'+ 
                roast1+
@@ -550,92 +568,7 @@ function imageClicked (path) {
 }  
 
 
-function getPics (id){
-  var u = usernameString;
 
-  var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-
-            var allDataArray      =     $.parseJSON(xmlhttp.responseText);
-              picsArray           =     $.parseJSON(allDataArray[0]);
-              randomArray         =     $.parseJSON(allDataArray[1]);
-            
-              var checkDiv = '<input type="checkbox" name="random" value="1" id="rCheckbox"  onclick="randomize(this)"> Select Pic Randomly<br>';
-              var displayPic = "";
-
-            //set checkbox and display pic on load
-            if(randomArray.length > 1){//when there is more than 1 pic
-              if((randomArray[0] == randomArray[1]) && (randomArray[0] == 1)){//hen there is more than 1 pic and 2 pics are set to be shown
-
-                checkDiv = '<input type="checkbox" checked="true" name="random" value="1" id="rCheckbox"  onclick="randomize(this)"> Select Pic Randomly<br>';
-                displayPic = '<img src="questionmark.png" style="width:170px;" hspace="20">';
-
-              }
-              else{ //hen there is more than 1 pic and when there are not 2 pics set to be shown
-                for(var i = 0; i < randomArray.length; i++){//find chosen pic
-                  if(randomArray[i] == 1){
-                    displayPic = '<img src=' + picsArray[i] +' style="width:170px;" hspace="20">';
-                  }
-                }
-              }
-            }//close more than 1 pic condition
-           else{//there is either no pics or 1 pic
-              if(randomArray.length == 1){
-                displayPic = '<img src=' + picsArray[0] +'style="width:170px;" hspace="20">';
-                }
-
-            }
-            
-            
-            //get all pics
-            //add to pics some kind of onclick method
-           var imgagesHTML = "";
-
-           for (var i = 0; i < picsArray.length; i++) {
-           
-            imgagesHTML = imgagesHTML + '<img src=' + picsArray[i] + ' onclick="imageClicked(this.src)" hspace="20" style="width:245px;">';
-            //imgagesHTML = imgagesHTML + '<img src=' + picsArray[i] + ' onclick="imageClicked(this.src)" >';
-           
-           }
-           //
-
-            var showGalleryHtml;
-            showGalleryHtml = "<div class='container' >"+
-            //showGalleryHtml ='<div id="galleryHeader" class="col-xs-10 col-sm-10 col-md-5 col-lg-10">' +
-                    '<div id="galleryHeader" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >' +
-                      '<h2>SeeMe Clothing</h2>' +
-                    '</div>' +
-                    '<div id="thumbnailGalleryView" style="overflow:scroll;" class="col-lg-10 col-md-10 col-sm-10 col-xs-12  col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-0">'+ 
-                      imgagesHTML +
-                    '</div>'+
-                    '<div id="addPicButton" class="col-lg-2 col-md-2 col-sm-2 col-xs-12  col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">'+
-                      '<input type="file" id="file">'+
-                      '<button type="button"  onclick="selectPic(this)">Submit</button>'+
-                    '</div>'+
-                    '<div id="picToDisplay" class="col-lg-2 col-md-2 col-sm-2 col-xs-12  col-lg-offset--1 col-md-offset-1 col-sm-offset-1 col-xs-offset-0">'+
-                      '<h4>Dispay Pic</h4>' +
-                      displayPic+
-                    '</div>'+
-                    '<div id="checkboxToRandomize" class="col-lg-2 col-md-2 col-sm-2 col-xs-12  col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-0">'+
-                      checkDiv+
-                    '</div>'
-                    '</div>';
-
-                    $("#file").change(function() { selectFileClick(); });
-
-                    var $jshowGalleryHtml = $(showGalleryHtml);
-                    $("body").append($jshowGalleryHtml);
-              }
-              else{
-                //alert(xmlhttp.responseText);
-              }
-            
-        };
-        xmlhttp.open("GET", "seeMeGetPics.php?u=" + u, true);
-        xmlhttp.send();
-}
 
 function randomize(id) {
   var cbv;
