@@ -6,10 +6,6 @@ var userSignedIn = 0;
 var usernameString;
 var picsArray;
 picsArray = [];
-var randomArray;
-randomArray = [];
-
-var randomValue = "";
 
 var roundCounter = 1;
 
@@ -450,7 +446,7 @@ function endScreen (id) {
                 '<div class="row">'+ //button
                     '<div class="col-md-3"></div>' + 
                     '<div class="col-md-6">'+ 
-                        '<button type="button" class="btn btn-lg btn-block btn-success" id="newGameButton" onclick="startPage(this)">Start New Game</button>'+
+                        '<button type="button" class="btn btn-lg btn-block btn-success" id="newGameButton" onclick="createGame(this)">Start New Game</button>'+
                     '</div>'+
                     '<div class="col-md-3"></div>' + 
                 '</div>' ;
