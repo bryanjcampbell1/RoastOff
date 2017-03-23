@@ -7,6 +7,15 @@ var usernameString;
 var picsArray;
 picsArray = [];
 
+
+ //var should be set from an array of submitted roasts
+var roast1 = "Who am I?  A hiphop Asian teenager.";
+var roast2 = "Ity looks like you couldnt throw a rock passed your dick.";
+var roast3 = "It looks like you can smell that you're dying";
+var roast4 = "Everybody deserves respect and dignity. Even this looser";
+var roast5 = "Everybody deserves respect and dignity. Even this looser";
+var RoastsArray = [roast1,roast2,roast3,roast4,roast5];
+
 var roundCounter = 1;
 
 var joinCode;
@@ -277,7 +286,9 @@ function clearDivs() {
     startTimer(fiveMinutes, display);
   });
 
-  setTimeout(showRoasts, 60*.2*1000);
+
+  //setTimeout(showRoasts, 60*.2*1000);
+    setTimeout(GetRoasts, 60*.2*1000);
 
 }
 
@@ -298,21 +309,40 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
+function GetRoasts (id) {
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              var foundUser =  xmlhttp.responseText;
+
+               RoastsArray  =  $.parseJSON(xmlhttp.responseText);
+
+               showRoasts() ;
+
+            }
+        };
+        xmlhttp.open("GET", "GetRoasts.php?g=" + joinCode, true);
+        xmlhttp.send();
+
+
+}
+
 function showRoasts (id) {
   $( "div" ).remove();
 
-
- //var should be set from an array of submitted roasts
-  var roast1 = "Who am I?  A hiphop Asian teenager.";
-  var roast2 = "Ity looks like you couldnt throw a rock passed your dick.";
-  var roast3 = "It looks like you can smell that you're dying";
-  var roast4 = "Everybody deserves respect and dignity. Even this looser";
-
-
+/*
   roast1 = "A) " + roast1;
   roast2 = "B) " + roast2;
   roast3 = "C) " + roast3;
   roast4 = "D) " + roast4;
+*/
+
+  roast1 = "A) " + RoastsArray[1];
+  roast2 = "B) " + RoastsArray[2];
+  roast3 = "C) " + RoastsArray[3];
+  roast4 = "D) " + RoastsArray[4];
+  roast5 = "E) " + RoastsArray[5];
 
 var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
 
@@ -681,5 +711,7 @@ jQuery.ajax(opts);
 //RandCheck checked then select a pic from gallery ---> checkbox needs to uncheck
 
 //joincode should change on a new game
+
+//create new variables to store users points 
 
 

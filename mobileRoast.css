@@ -17,7 +17,10 @@ body {
     background: -moz-linear-gradient(-90deg, 02BCC2, 88D3E1); /* For Firefox 3.6 to 15 */
     background: linear-gradient(-90deg, 02BCC2, 88D3E1); /* Standard syntax */
 
-    background-size:cover
+    background-image: url("cartoonFire.jpg");
+
+    background-size: cover;
+
 
 }
 
