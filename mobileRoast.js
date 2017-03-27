@@ -4,8 +4,11 @@
 
 //DB contacts
 //
-// 1) JoinGame and add username ----> Done
+// 1) JoinGame and add username ----> Done 
+// 1.5) Return playerNumber --
 // 2) Submit pics ----> Done
+
+//After a designated time period --> no new users allowed in
 // 3) Get RoastPics after everybody signs up and submits their pics
 // 4) Submit roasts
 // 5) Submit vote
@@ -24,8 +27,10 @@ randomArray = [];
 
 var randomValue = "";
 
-var roundCounter = 1;
+var roundCount = 1;
+var playerNumber = 1; //to be replaced by DB query
 var joinID;
+
 
 function signInUser(id){
   var u = $( "#usernameTextField").val();
@@ -246,14 +251,14 @@ var loginField;
                       '<div class="col-md-3 col-sm-3 col-xs-3">'+ '</div>' +
                       '<div class="col-md-6 col-sm-6 col-xs-6" id="PictureHere">'+ 
                       //PicHere
-                      '<img src=' + picsArray[roundCounter -1] +' style="width:350px;" hspace="20">'+
+                      '<img src=' + picsArray[roundCount -1] +' style="width:350px;" hspace="20">'+
                       '</div>'+ 
                       '<div class="col-md-3 col-sm-3 col-xs-3">'+ '</div>' + 
                     '</div>'+//row 1 end
                     '<div class="row " >' +
                       '<div class="col-md-1 col-sm-1 col-xs-1">'+ '</div>' +
                       '<div class="col-md-10 col-sm-10 col-xs-10" id="TypeRoastHere">'+
-                          '<textarea class="form-control" rows="3"></textarea>'+
+                          '<textarea class="form-control" id="area1" rows="3"></textarea>'+
                       '</div>'+
                       '<div class="col-md-1 col-sm-1 col-xs-1">'+ '</div>'+
                     '</div>'+//row 2 end
@@ -269,11 +274,28 @@ var loginField;
   $("body").append($jloginField);
 
   
+
+  
 }
 
 function waitToVote() {
-  var u = usernameString;
+  //submit your roast
 
+  var roastText = $("#area1").val();
+
+
+   var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+               alert(xmlhttp.responseText);
+
+            }
+        };
+        xmlhttp.open("POST", "EnterRoastText.php?g=" + joinID +  "&p=" + playerNumber + "&e=" + roastText + "&f=" + roundCount, true);
+        xmlhttp.send();
+
+  //display new page asynchronously
   $( "div" ).remove();
 
   var loginField;
@@ -445,9 +467,9 @@ function displayPoints() {
     var $jloginField = $(loginField);
   $("body").append($jloginField);
 
-   roundCounter = roundCounter + 1;
+   roundCount = roundCount + 1;
 
- if (roundCounter < 4){
+ if (roundCount < 4){
     setTimeout(enterRoastPage, 4000);
   }
   else{
@@ -461,7 +483,7 @@ function endScreen() {
 //4 votes!
 //+200 points!
 
- roundCounter = 1;
+ roundCount = 1;
  $( "div" ).remove();
 
   var loginField;

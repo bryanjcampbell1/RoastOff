@@ -13,21 +13,25 @@ if($db->connect_errno > 0){
 }
 
 $g = $_REQUEST["g"]; // join code
-$r = $_REQUEST["r"]; // round number
+$f = $_REQUEST["f"]; // round number
 $p = $_REQUEST["p"]; // player number
+
+//$round = strval($r); 
 
 $roast = $_REQUEST["e"]; // roast text
 
 
-$playerAndRound = "P".$p."R".$r;
+$playerAndRound = "P".$p."R".$f;
 
 $sql = "UPDATE GameObject SET ".$playerAndRound." = '" .$roast. "' WHERE gameID = '".$g."'";
 
 
 if ($db->query($sql) === TRUE) {
+
     echo "New record created successfully";
 } else {
-    echo "Error: " . $sql . "<br>" . $db->error;
+    //echo "Error: " . $sql . "<br>" . $db->error;
+	echo $f ;
 }
 
 
