@@ -2,6 +2,19 @@
 //Globals
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+//DB contacts
+//
+// 1) JoinGame and add username ----> Done
+// 2) Submit pics ----> Done
+// 3) Get RoastPics after everybody signs up and submits their pics
+// 4) Submit roasts
+// 5) Submit vote
+// optional
+// display roasts on phone
+// display points on phone
+// display winner or ranking on phone
+
+
 var userSignedIn = 0;
 var usernameString;
 var picsArray;
@@ -72,22 +85,7 @@ function page1 (id){
  
 }
 
-function addGamePic(id){
-  $( "div" ).remove();
 
-  var showGalleryHtml;
-             
-  showGalleryHtml = '<div id="addPicButton" class="col-lg-2 col-md-2 col-sm-2 col-xs-12  col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">'+
-                      '<input type="file" id="file">'+
-                      '<button type="button" class="btn btn-lg btn-block btn-success" onclick="selectPic(this)">Submit</button>'+
-                    '</div>';
-
-                    $("#file").change(function() { selectFileClick(); });
-
-                    var $jshowGalleryHtml = $(showGalleryHtml);
-                    $("body").append($jshowGalleryHtml);
-
-}
 function selectPic (id){
   //grab file from #file
   var f = $("#file")[0].files[0];
@@ -106,10 +104,10 @@ function selectPic (id){
     processData: false,
     type: 'POST',
     success: function(data){
-        //showGalleryPage();
-        //should pop up widow that ask for mor pics or go to game
+        page1();
     }
   });
+}
 
   /* //for older browsers --> use FormData Emulation
   var opts = {
@@ -132,7 +130,9 @@ if(data.fake) {
 jQuery.ajax(opts);
   */
 
-}
+
+
+
 function goToLoad(id){
   var u = usernameString;
 
@@ -163,7 +163,8 @@ function goToLoad(id){
   setTimeout(loadingLabel4, 4000);
   var myVar = setInterval(myTimer, 4000);  //starts repeated timer
 
-  setTimeout(enterRoastPage, 6000);
+  setTimeout(getPics, 6000);
+  //setTimeout(enterRoastPage, 6000);
 
 }
 
@@ -189,6 +190,27 @@ function loadingLabel3() {
 function loadingLabel4() {
   document.getElementById("Loading1").innerHTML = "Loading";
 }
+
+
+
+function getPics (id){ //call 4s earlier than the end of loading period using timer
+
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+               picsArray  =  $.parseJSON(xmlhttp.responseText);
+
+               enterRoastPage();
+
+
+            }
+        };
+        xmlhttp.open("GET", "GetPics.php?g=" + joinID, true);
+        xmlhttp.send();
+        
+}
+
 
 
 function enterRoastPage() {
@@ -224,6 +246,7 @@ var loginField;
                       '<div class="col-md-3 col-sm-3 col-xs-3">'+ '</div>' +
                       '<div class="col-md-6 col-sm-6 col-xs-6" id="PictureHere">'+ 
                       //PicHere
+                      '<img src=' + picsArray[roundCounter -1] +' style="width:350px;" hspace="20">'+
                       '</div>'+ 
                       '<div class="col-md-3 col-sm-3 col-xs-3">'+ '</div>' + 
                     '</div>'+//row 1 end

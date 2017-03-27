@@ -7,6 +7,8 @@ var usernameString;
 var picsArray;
 picsArray = [];
 
+var RoundRankArray = [];
+var RoundPointsArray = [];
 
  //var should be set from an array of submitted roasts
 var roast1 = "Who am I?  A hiphop Asian teenager.";
@@ -156,9 +158,6 @@ function createGame (id) {
         xmlhttp.send();
 
 }
-
-
-
 
 function startPage (id) {
   $( "div" ).remove();
@@ -314,8 +313,6 @@ function GetRoasts (id) {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-              var foundUser =  xmlhttp.responseText;
-
                RoastsArray  =  $.parseJSON(xmlhttp.responseText);
 
                showRoasts() ;
@@ -368,7 +365,24 @@ var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
   var t4 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4; }, 12000);
 
 //segue should ralistically be triggered by votes coming in 
-  setTimeout(showRoundWinner, 14000);
+  setTimeout(GetRoundWinner, 14000);
+
+}
+
+function GetRoundWinner (id) {
+      var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+               RoundRankArray  =  $.parseJSON(xmlhttp.responseText);
+
+               showRoundWinner() ;
+
+            }
+        };
+        xmlhttp.open("GET", "GetRoasts.php?g=" + joinCode, true);
+        xmlhttp.send();
+
 
 }
 
@@ -402,14 +416,14 @@ function showRoundWinner (id) {
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="roundWinner">'+ 
-                  "kingsnackman Wins!"+
+                  RoundRankArray[0]+"Wins!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>'+ 
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="pointsLabel">'+ 
-                  "+"+"150" +"POINTS!"+
+                  "+"+RoundPointsArray[0] +"POINTS!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>';

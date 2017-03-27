@@ -15,9 +15,12 @@ body {
     background: -webkit-linear-gradient(-90deg, rgba(136,211,255,1), rgba(2,188,194,1)); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(-90deg, 02BCC2, 88D3E1); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(-90deg, 02BCC2, 88D3E1); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(-90deg, 02BCC2, 88D3E1); /* Standard syntax */
+    /*background: linear-gradient(-90deg, 02BCC2, 88D3E1);  */
 
-    background-image: url("cartoonFire.jpg");
+    background: linear-gradient(0deg, #1F1C2C, #928DAB); /* Standard syntax */
+    background: linear-gradient(0deg, #000000, #434343);
+
+    /*background-image: url("cartoonFire.jpg");*/
 
     background-size: cover;
 
