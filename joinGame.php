@@ -72,7 +72,9 @@ $sql = "UPDATE GameObject SET ".$playerString." = '".$u."' WHERE gameID = '".$g.
 
 
 if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
+    //echo "New record created successfully";
+    echo intval($playerNumber);
+
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

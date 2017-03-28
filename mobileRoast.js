@@ -20,6 +20,8 @@
 
 var userSignedIn = 0;
 var usernameString;
+var playerNumber ; //to be replaced by DB query
+
 var picsArray;
 picsArray = [];
 var randomArray;
@@ -28,7 +30,6 @@ randomArray = [];
 var randomValue = "";
 
 var roundCount = 1;
-var playerNumber = 1; //to be replaced by DB query
 var joinID;
 
 
@@ -41,14 +42,13 @@ function signInUser(id){
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
               usernameString = u;
-
-              var foundUser =  xmlhttp.responseText;
+              joinID = g;
+              playerNumber =  xmlhttp.responseText;
               
-              //alert(foundUser);
+              //alert(playerNumber);
               //add error if more than 5 players
               page1();
-              joinID = g;
-
+              
 
 
             }
