@@ -62,6 +62,7 @@ function page1 (id){
   
   $( "div" ).remove();
 
+
   showGalleryHtml = '<div class="row " >' +
                       '<div class="col-md-1 col-sm-1 col-xs-1">'+ '</div>' +
                       '<div class="col-md-10 col-sm-10 col-xs-10" id="addPictureButton">'+ 
@@ -88,6 +89,26 @@ function page1 (id){
                     $("body").append($jshowGalleryHtml);
 
  
+}
+
+function addGamePic(id){
+  $( "div" ).remove();
+
+      var showGalleryHtml;
+            showGalleryHtml = "<div class='container' >"+
+            //showGalleryHtml ='<div id="galleryHeader" class="col-xs-10 col-sm-10 col-md-5 col-lg-10">' +
+                    '<div id="addPicButton" class="col-lg-2 col-md-2 col-sm-2 col-xs-12  col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">'+
+                      '<input type="file" id="file">'+
+                      '<button type="button"  onclick="selectPic(this)">Submit</button>'+
+                    '</div>'+
+                    '</div>';
+
+                    $("#file").change(function() { selectFileClick(); });
+
+                    var $jshowGalleryHtml = $(showGalleryHtml);
+                    $("body").append($jshowGalleryHtml);
+
+
 }
 
 
