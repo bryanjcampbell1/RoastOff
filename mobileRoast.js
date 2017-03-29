@@ -5,12 +5,12 @@
 //DB contacts
 //
 // 1) JoinGame and add username ----> Done 
-// 1.5) Return playerNumber --
+// 1.5) Return playerNumber --> Done
 // 2) Submit pics ----> Done
 
 //After a designated time period --> no new users allowed in
-// 3) Get RoastPics after everybody signs up and submits their pics
-// 4) Submit roasts
+// 3) Get RoastPics after everybody signs up and submits their pics -->Done
+// 4) Submit roasts -->Done
 // 5) Submit vote
 // optional
 // display roasts on phone
@@ -426,6 +426,17 @@ function goToVote() {
 function voteAndWait(p1) {
   var choiceOfLetter = p1;
   //use ajax to upload vote
+
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+               alert(xmlhttp.responseText);
+
+            }
+        };
+        xmlhttp.open("POST", "updateVote.php?g=" + joinID +  "&v=" + p1, true);
+        xmlhttp.send();
 
 
   //----------------------------------//
