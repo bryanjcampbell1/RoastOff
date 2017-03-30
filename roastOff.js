@@ -7,8 +7,10 @@ var usernameString;
 var picsArray;
 picsArray = [];
 
-var RoundRankArray = [];
-var RoundPointsArray = [];
+var allUsernamesArray = []; //needs to query DB and populate
+var usernameRank = []; 
+var newPointsArray    = [0,0,0,0,0]; //holds points added from latest round
+var TotalPointsArray  = [0,0,0,0,0]; //holds total points
 
  //var should be set from an array of submitted roasts
 var roast1 = "Who am I?  A hiphop Asian teenager.";
@@ -21,10 +23,6 @@ var RoastsArray = [roast1,roast2,roast3,roast4,roast5];
 var roundCounter = 1;
 
 var joinCode;
-
-//var should be set from an array of submitted roasts
-
-
 
 //--------------------------------------------------------------------------------//
 
@@ -62,12 +60,6 @@ function signInButton (id) {
   var $jloginField = $(loginField);
  $("body").append($jloginField);
 
-//hen signInUser is triggered 
-//1) php runs and checks username and pasword
-//2) if (success) --> take user to a Welcome screen with a "start game" button
-//3)
-
-
 }
 
 function signInUser(id){
@@ -86,7 +78,6 @@ function signInUser(id){
                 userSignedIn = 1;
 
                 welcomePage();
-               // startPage ();
                 
                 }
                 else{
@@ -96,8 +87,7 @@ function signInUser(id){
               }
               else{
                 //alert("Could not connect to account. Try again later.");
-              }
-            
+              }  
         };
         xmlhttp.open("GET", "SignIn.php?u=" + u + "&p=" + p, true);
         xmlhttp.send();
@@ -226,8 +216,6 @@ function chooseGamePics(id) {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
               var foundUser =  xmlhttp.responseText;
-              //prit output from php? Uncomment below
-              //alert(foundUser);
               getPics();
 
             }
@@ -257,14 +245,8 @@ function getPics (id){
 
 function clearDivs() {
   $( "div" ).remove();
-
-  var loginField;
-
-  //alert(picsArray[0]);
-  //alert(picsArray[1]);
-  //alert(picsArray[2]);
-
-  loginField ='<div class="col-md-4" id="RoundOne">'+
+  
+  var loginField ='<div class="col-md-4" id="RoundOne">'+
                 '<font >ROUND ' + roundCounter + '</font>'+
               '</div>' + 
                '<div class="col-md-4" id="RoastPicHere">'+ 
@@ -280,14 +262,15 @@ function clearDivs() {
  $("body").append($jloginField);
 
   jQuery(function ($) {
-    var fiveMinutes = 60 * .2,
+    //var fiveMinutes = 60 * .2,
+    var fiveMinutes = 60,  //test 
         display = $('#counter');
     startTimer(fiveMinutes, display);
   });
 
-
-  //setTimeout(showRoasts, 60*.2*1000);
-    setTimeout(GetRoasts, 60*.2*1000);
+    //setTimeout(GetRoasts, 60*.2*1000);
+    //setTimeout(OrderRoasts, 55*1000);
+    setTimeout(OrderRoasts, 10*1000); //test -->gives 60 s to enter roast
 
 }
 
@@ -308,6 +291,34 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
+function OrderRoasts (id) {
+alert("inside");
+/*
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              alert(xmlhttp.responseText);
+
+               GetRoasts() ;
+
+
+            }
+        };
+        xmlhttp.open("GET", "OrderRoasts.php?g=" + joinCode + "&r=" + roundCounter, true);
+        xmlhttp.send();
+        */
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+               showRoasts() ;
+
+            }
+        };
+        xmlhttp.open("GET", "OrderRoasts.php?g=" + joinCode, true);
+        xmlhttp.send();
+}
+
 function GetRoasts (id) {
     var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -315,25 +326,22 @@ function GetRoasts (id) {
 
                RoastsArray  =  $.parseJSON(xmlhttp.responseText);
 
+               alert(RoastsArray[0]);
+               alert(RoastsArray[1]);
+               alert(RoastsArray[2]);
+               alert(RoastsArray[3]);
+               alert(RoastsArray[4]);
+
                showRoasts() ;
 
             }
         };
         xmlhttp.open("GET", "GetRoasts.php?g=" + joinCode, true);
         xmlhttp.send();
-
-
 }
 
 function showRoasts (id) {
   $( "div" ).remove();
-
-/*
-  roast1 = "A) " + roast1;
-  roast2 = "B) " + roast2;
-  roast3 = "C) " + roast3;
-  roast4 = "D) " + roast4;
-*/
 
   roast1 = "A) " + RoastsArray[1];
   roast2 = "B) " + RoastsArray[2];
@@ -365,7 +373,8 @@ var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
   var t4 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4; }, 12000);
 
 //segue should ralistically be triggered by votes coming in 
-  setTimeout(GetRoundWinner, 14000);
+ // setTimeout(GetRoundWinner, 14000);
+ setTimeout(GetRoundWinner, 60*1000); //gives 1 minute for users to vote
 
 }
 
@@ -374,13 +383,14 @@ function GetRoundWinner (id) {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-               RoundRankArray  =  $.parseJSON(xmlhttp.responseText);
+               newPointsArray  =  $.parseJSON(xmlhttp.responseText);
+               setUsernameRank();
 
                showRoundWinner() ;
 
             }
         };
-        xmlhttp.open("GET", "GetRoasts.php?g=" + joinCode, true);
+        xmlhttp.open("GET", "GetPoints.php?g=" + joinCode, true);
         xmlhttp.send();
 
 
@@ -416,14 +426,14 @@ function showRoundWinner (id) {
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="roundWinner">'+ 
-                  RoundRankArray[0]+"Wins!"+
+                  usernameRank[0]+"Wins!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>'+ 
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="pointsLabel">'+ 
-                  "+"+RoundPointsArray[0] +"POINTS!"+
+                  "+"+newPointsArray[0] +"POINTS!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>';
@@ -449,24 +459,6 @@ function endScreen (id) {
 
   var loginField;
   //add button in nav bar to go back to main 
-  /*
-  loginField = '<div class="row">'+
-                    '<div class="col-md-8" id="gameName1">'+ 
-                       "WINNER!"+
-                    '</div>'+ 
-                '</div>'+
-                '<div class="row">'+
-                    '<div class="col-md-2">'+ '</div>'+ 
-                    '<div class="col-md-8" id="gameWinner">'+ "kingsnackman"+"!"+'</div>'+ 
-                    '<div class="col-md-2" id="counter">'+ '</div>'+
-                '<div class="row">'+ 
-                    '<div class="col-md-3"></div>' + 
-                    '<div class="col-md-6">'+ 
-                        '<button type="button" class="btn btn-lg btn-block btn-success" onclick="startPage(this)">Start New Game</button>'+
-                    '</div>'+
-                    '<div class="col-md-3"></div>' + 
-                '</div>'  ;
-                */
 
   loginField = '<div class="row " >' +
                  '<div class="col-md-2">'+ '</div>' +
@@ -569,109 +561,6 @@ function signUpUser(id){
 }
 
 
-function imageClicked (path) {
-
-  var img = '<img src=' + path + ' style="width:170px;" hspace="20">';
-  //var img = '<img src=' + path + ' >';
-  
-  $("#picToDisplay img:last-child").remove();
-  var $jImage = $(img);
-  $("#picToDisplay").append($jImage);
-
-  //var checkedValue = $('#rCheckbox:checked').val();
- $('#rCheckbox').prop('checked', false);
-
-  var str = path;
-  str = str.substring(str.indexOf("keepPicsHere") );
-  //alert(str);
-
-  var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              //do nothing
-              var xmlhttp2 = new XMLHttpRequest();
-                xmlhttp2.onreadystatechange = function() {
-               if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
-
-
-              }
-            };
-            xmlhttp2.open("POST", "setDisplayPick2.php?userame=" + usernameString + "&path=" + str, true);
-            xmlhttp2.send();
-
-            }
-        };
-        xmlhttp.open("POST", "setDisplayPick.php?userame=" + usernameString + "&path=" + path, true);
-        xmlhttp.send();
-        //this php file mustt
-
-}  
-
-
-
-
-function randomize(id) {
-  var cbv;
-//use value = 1 for normal 
-//value = -1 for randomize
-
-//need to set jquery to watch checkbox for change
-  var checkedValue = $('#rCheckbox:checked').val();
-//alert("here");
-//alert(checkedValue);
-
-  if(checkedValue == "1"){
-    cbv = "1";
-    var img = '<img src="questionmark.png" style="width:170px;" hspace="20">';
-  
-    $("#picToDisplay img:last-child").remove();
-    var $jImage = $(img);
-    $("#picToDisplay").append($jImage);
-
-  }
-  else{
-  //alert("-1");
-  cbv = "0";
-  $("#picToDisplay img:last-child").remove();
-  }
-
-  var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              //do nothing
-
-            }
-        };
-        xmlhttp.open("POST", "randomize.php?username=" + usernameString+ "&checkboxValue=" + cbv, true);
-        xmlhttp.send();
-
-
-}
-
-
-function selectPic (id){
-  //grab file from #file
-  var f = $("#file")[0].files[0];
-
-  var data = new FormData();
-  
-  jQuery.each(jQuery('#file')[0].files, function(i, file) {
-    data.append('file-'+i, file);
-    });
-
-  jQuery.ajax({
-    url: "seeMeAddPic.php?u=" + usernameString,
-    data: data,
-    cache: false,
-    contentType: false,
-    processData: false,
-    type: 'POST',
-    success: function(data){
-        showGalleryPage();
-    }
-  });
-
-
 function myTimer() {
   setTimeout(loadingLabel1, 1000);
   setTimeout(loadingLabel2, 2000);
@@ -695,37 +584,72 @@ function loadingLabel4() {
   document.getElementById("Loading1").innerHTML = "Loading";
 }
 
-  /* //for older browsers --> use FormData Emulation
-  var opts = {
-    url: 'php/upload.php',
-    data: data,
-    cache: false,
-    contentType: false,
-    processData: false,
-    type: 'POST',
-    success: function(data){
-        alert(data);
+
+
+function setUsernameRank() {
+
+  for (i = 0; i < newPointsArray.length; i++) { 
+    
+    var rank = rankPoints(newPointsArray[i],newPointsArray[0],newPointsArray[1],newPointsArray[2],newPointsArray[3],newPointsArray[4]);
+
+    //usernameRank[rank-1] = allUsernamesArray[i];   //set rank with no tie
+   
+    if(usernameRank[rank-1] != null){ //rank-1 full 
+     // try index = rank-2
+     if(usernameRank[rank-2] != null){ //rank-2 full
+        // try index = rank-3
+        if(usernameRank[rank-3] != null){ //rank-3 full
+          // try index = rank-3
+          if(usernameRank[rank-4] != null){ //rank-3 full
+             if(usernameRank[rank-5] != null){ //rank-3 full
+                    // try index = rank-5
+              }
+              else{
+                  usernameRank[rank-5] = allUsernamesArray[i]; //settle 4 way tie
+              }       // try
+
+          }
+          else{
+              usernameRank[rank-4] = allUsernamesArray[i]; //settle 4 way tie
+          }
+
+        }
+        else{
+            usernameRank[rank-3] = allUsernamesArray[i]; //settle 3 way tie
+          }
+      }
+      else{ //rank-2 empty
+        usernameRank[rank-2] = allUsernamesArray[i]; //settle 2 way tie
+      }
     }
-};
-if(data.fake) {
-    // Make sure no text encoding stuff is done by xhr
-    opts.xhr = function() { var xhr = jQuery.ajaxSettings.xhr(); xhr.send = xhr.sendAsBinary; return xhr; }
-    opts.contentType = "multipart/form-data; boundary="+data.boundary;
-    opts.data = data.toString();
-}
-jQuery.ajax(opts);
-  */
+    else{ //index = rank-1 is empty
+    usernameRank[rank-1] = allUsernamesArray[i];   //set rank with no tie
+    }
+  }
 
 }
 
 
 
+function rankPoints(a,b,c,d,e,f) {
+  var rank = 5; //5 or 4?
 
-//Notes
-//RandCheck checked then select a pic from gallery ---> checkbox needs to uncheck
-
-//joincode should change on a new game
-
-//create new variables to store users points 
+  if(a>b){
+    rank = rank - 1;
+  }
+  if(a>c){
+    rank = rank - 1;
+  }
+  if(a>d){
+    rank = rank - 1;
+  }
+  if(a>e){
+    rank = rank - 1;
+  }
+  if(a>f){
+    rank = rank - 1;
+  }
+  return rank;
+}
 
 

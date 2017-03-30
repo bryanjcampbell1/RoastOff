@@ -14,7 +14,6 @@ if ($conn->connect_error) {
 } 
 
 $g=  $_REQUEST["g"]; //gameID
-$r=  $_REQUEST["r"]; //roundNumber
 
 $A;
 $A;
@@ -35,8 +34,9 @@ $P4TotalPoints;
 $P5TotalPoints;
 
 
-$VotesArray = array($A,$B,$C,$D,$E); // will the array values change when the var inside do?
-$AuthorArray = array($A_Author,$B_Author,$C_Author,$D_Author,$E_Author);
+$VotesArray = array(); 
+$AuthorArray = array();
+$OrderedArray = array(0,0,0,0,0);
 
 //get all from gameObject where id matches entry
 $sql = "SELECT * FROM  `GameObject` WHERE `gameID` = '".$g."'"; 
@@ -62,6 +62,9 @@ while($row = $result->fetch_assoc()){
 	$D_Author = $row['D_Creator'];
 	$E_Author = $row['E_Creator'];
 
+	$VotesArray = array($A,$B,$C,$D,$E); 
+	$AuthorArray = array($A_Author,$B_Author,$C_Author,$D_Author,$E_Author);
+
 }
 
 
@@ -71,7 +74,31 @@ for( $i = 0; $i = <5; $i ++){
 	$AuthorArray[i];
 	$VotesArray[i]; //numbers or strings?  and does it matter?
 
-    $sql1 = "UPDATE GameObject SET P".$AuthorArray[i];."TotalPoints = P".$AuthorArray[i];."TotalPoints + '".$VotesArray[i]."' WHERE gameID = '".$g."'";
+	if ($AuthorArray[i] == 1) {//Player1 created roast
+
+		$OrderedArray[0] = $VotesArray[i];
+
+	} elseif ($AuthorArray[i] == 2) {
+
+		$OrderedArray[1] = $VotesArray[i];
+
+	} elseif ($AuthorArray[i] == 3) {
+
+		$OrderedArray[2] = $VotesArray[i];
+
+	} elseif ($AuthorArray[i] == 4) {
+
+		$OrderedArray[3] = $VotesArray[i];
+
+	} elseif ($AuthorArray[i] == 5) {
+
+		$OrderedArray[4] = $VotesArray[i];
+    
+	} else {
+		echo "somethings is wrong with AuthorArray";
+	}
+
+    $sql1 = "UPDATE GameObject SET P".$AuthorArray[i]."TotalPoints = P".$AuthorArray[i]."TotalPoints + '".$VotesArray[i]."' WHERE gameID = '".$g."'";
     if ($conn->query($sql1) === TRUE) {
 	} else {
 	    echo "Error: " . $sql1 . "<br>" . $conn->error;
@@ -80,10 +107,9 @@ for( $i = 0; $i = <5; $i ++){
 }
 
 
+$jsonArray = json_encode($OrderedArray);
 
-//remaining tasks
-//1) compare elements of vote array to find round winner --> could also be done in js
-//2) in roastoff.js also update totals and display leader
+echo $jsonArray;
 
 
 $conn->close();

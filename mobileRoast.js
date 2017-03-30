@@ -11,7 +11,7 @@
 //After a designated time period --> no new users allowed in
 // 3) Get RoastPics after everybody signs up and submits their pics -->Done
 // 4) Submit roasts -->Done
-// 5) Submit vote
+// 5) Submit vote -->Done
 // optional
 // display roasts on phone
 // display points on phone

@@ -14,6 +14,8 @@ if ($conn->connect_error) {
 } 
 
 $g=  $_REQUEST["g"]; 
+
+/*
 $r=  $_REQUEST["r"]; //roundNumber
 
 $A;
@@ -117,7 +119,9 @@ while($row = $result->fetch_assoc()){
 //ON DUPLICATE KEY UPDATE Col1=VALUES(Col1);"
 
 //8 seperate sql requests
-$sql1 = "UPDATE GameObject SET A_Text = '" .$A. "' WHERE gameID = '".$g."'";
+$sql1 = "UPDATE GameObject SET A_Text = '" .$A. "',B_Text = '" .$B. "',C_Text = '" .$C. "',D_Text = '" .$D. "',E_Text = '" .$E. "', WHERE gameID = '".$g."'";
+
+/*
 $sql2 = "UPDATE GameObject SET B_Text = '" .$B. "' WHERE gameID = '".$g."'";
 $sql3 = "UPDATE GameObject SET C_Text = '" .$C. "' WHERE gameID = '".$g."'";
 $sql4 = "UPDATE GameObject SET D_Text = '" .$D. "' WHERE gameID = '".$g."'";
@@ -127,61 +131,13 @@ $sql7 = "UPDATE GameObject SET B_Creator = '" .$B_Author. "' WHERE gameID = '".$
 $sql8 = "UPDATE GameObject SET C_Creator = '" .$C_Author. "' WHERE gameID = '".$g."'";
 $sql9 = "UPDATE GameObject SET D_Creator = '" .$D_Author. "' WHERE gameID = '".$g."'";
 $sql10 = "UPDATE GameObject SET E_Creator = '" .$E_Author. "' WHERE gameID = '".$g."'";
-
-
-
+*/
+/*
 if ($conn->query($sql1) === TRUE) {
 } else {
     echo "Error: " . $sql1 . "<br>" . $conn->error;
 }
-
-if ($conn->query($sql2) === TRUE) {
-} else {
-    echo "Error: " . $sql2 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sql3) === TRUE) {
-} else {
-    echo "Error: " . $sql3 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sql4) === TRUE) {
-} else {
-    echo "Error: " . $sql4 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sql5) === TRUE) {
-} else {
-    echo "Error: " . $sql5 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sql6) === TRUE) {
-} else {
-    echo "Error: " . $sql6 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sql7) === TRUE) {
-} else {
-    echo "Error: " . $sql7 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sq8) === TRUE) {
-} else {
-    echo "Error: " . $sql8 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sql9) === TRUE) {
-} else {
-    echo "Error: " . $sql9 . "<br>" . $conn->error;
-}
-
-if ($conn->query($sq10) === TRUE) {
-} else {
-    echo "Error: " . $sql10 . "<br>" . $conn->error;
-}
-
-
-
+*/
 
 $conn->close();
 
