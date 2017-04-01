@@ -263,14 +263,14 @@ function clearDivs() {
 
   jQuery(function ($) {
     //var fiveMinutes = 60 * .2,
-    var fiveMinutes = 60,  //test 
+    var fiveMinutes = 45,  //test 
         display = $('#counter');
     startTimer(fiveMinutes, display);
   });
 
     //setTimeout(GetRoasts, 60*.2*1000);
     //setTimeout(OrderRoasts, 55*1000);
-    setTimeout(OrderRoasts, 10*1000); //test -->gives 60 s to enter roast
+    setTimeout(OrderRoasts, 45*1000+2); //test -->gives 60 s to enter roast
 
 }
 
@@ -311,7 +311,7 @@ alert("inside");
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-               showRoasts() ;
+               GetRoasts() ;
 
             }
         };
@@ -651,5 +651,14 @@ function rankPoints(a,b,c,d,e,f) {
   }
   return rank;
 }
+
+//-------------------------Ideas------------------------------------------//
+/*
+
+    After game ends show winner, 2nd place, most popular roast
+
+*/
+//-------------------------Ideas------------------------------------------//
+
 
 
