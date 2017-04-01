@@ -40,8 +40,8 @@ while($row = $result->fetch_assoc()){
 	$D =  $row['D_Text'] ;
 	$E =  $row['E_Text'] ;
 
-	//$RoastsArray = array($A,$B,$C,$D,$E);
-	$RoastsArray = array("yo","yo","yo","yo","yo");
+	$RoastsArray = array($A,$B,$C,$D,$E);
+	//$RoastsArray = array("yo","yo","yo","yo","yo");
 }
 
 $jsonArray = json_encode($RoastsArray);
