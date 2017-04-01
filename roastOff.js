@@ -263,14 +263,14 @@ function clearDivs() {
 
   jQuery(function ($) {
     //var fiveMinutes = 60 * .2,
-    var fiveMinutes = 45,  //test 
+    var fiveMinutes = 60,  //test 
         display = $('#counter');
     startTimer(fiveMinutes, display);
   });
 
     //setTimeout(GetRoasts, 60*.2*1000);
     //setTimeout(OrderRoasts, 55*1000);
-    setTimeout(OrderRoasts, 45*1000+2); //test -->gives 60 s to enter roast
+    setTimeout(OrderRoasts, 60*1000+2); //test -->gives 60 s to enter roast
 
 }
 
@@ -292,22 +292,8 @@ function startTimer(duration, display) {
 }
 
 function OrderRoasts (id) {
-alert("inside");
-/*
-    var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              alert(xmlhttp.responseText);
 
-               GetRoasts() ;
-
-
-            }
-        };
-        xmlhttp.open("GET", "OrderRoasts.php?g=" + joinCode + "&r=" + roundCounter, true);
-        xmlhttp.send();
-        */
-        var xmlhttp = new XMLHttpRequest();
+  var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
@@ -315,7 +301,7 @@ alert("inside");
 
             }
         };
-        xmlhttp.open("GET", "OrderRoasts.php?g=" + joinCode, true);
+        xmlhttp.open("GET", "OrderRoasts1.php?g=" + joinCode, true);
         xmlhttp.send();
 }
 
