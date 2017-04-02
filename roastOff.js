@@ -395,11 +395,18 @@ function GetRoundWinner (id) {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-               //newPointsArray  =  $.parseJSON(xmlhttp.responseText);
-               //setUsernameRank();
+               newPointsArray  =  $.parseJSON(xmlhttp.responseText);
+                
+                var largestIndex = indexOfMax(newPointsArray);
+                //alert(largestIndex);
 
-                alert("inside"); //problrm 
-               //showRoundWinner() ;
+               // alert(allUsernamesArray.length);
+
+               usernameRank[0] = allUsernamesArray[largestIndex];
+               
+
+                showRoundWinner() ;
+               
 
             }
         };
@@ -408,6 +415,25 @@ function GetRoundWinner (id) {
 
 
 }
+
+function indexOfMax(arr) {
+    if (arr.length === 0) {
+        return -1;
+    }
+
+    var max = arr[0];
+    var maxIndex = 0;
+
+    for (var i = 1; i < arr.length; i++) {
+        if (arr[i] > max) {
+            maxIndex = i;
+            max = arr[i];
+        }
+    }
+
+    return maxIndex;
+}
+
 
 function showRoundWinner (id) {
   $( "div" ).remove();
@@ -439,14 +465,14 @@ function showRoundWinner (id) {
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="roundWinner">'+ 
-                  usernameRank[0]+"Wins!"+
+                  usernameRank[0]+" Wins!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>'+ 
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="pointsLabel">'+ 
-                  "+"+newPointsArray[0] +"POINTS!"+
+                  "+"+newPointsArray[0]*50 +" POINTS!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>';

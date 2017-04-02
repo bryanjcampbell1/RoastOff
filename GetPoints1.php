@@ -27,15 +27,6 @@ $C_Author;
 $D_Author;
 $E_Author;
 
-$P1TotalPoints;
-$P2TotalPoints;
-$P3TotalPoints;
-$P4TotalPoints;
-$P5TotalPoints;
-
-
-$VotesArray = array(); 
-$AuthorArray = array();
 $OrderedArray = array(0,0,0,0,0);
 
 //get all from gameObject where id matches entry
@@ -61,16 +52,20 @@ while($row = $result->fetch_assoc()){
 	$C_Author = $row['C_Creator'];
 	$D_Author = $row['D_Creator'];
 	$E_Author = $row['E_Creator'];
-
-	$VotesArray = array($A,$B,$C,$D,$E); 
-	$AuthorArray = array($A_Author,$B_Author,$C_Author,$D_Author,$E_Author);
-
-	//this line should be deleted
-	//$OrderedArray = $VotesArray;
-
 }
 
-$sql1 = "UPDATE GameObject SET P1TotalPoints = P1TotalPoints + '".$VotesArray[0]."',P2TotalPoints = P2TotalPoints + '".$VotesArray[1]."',P3TotalPoints = P3TotalPoints + '".$VotesArray[2]."',P4TotalPoints = P4TotalPoints + '".$VotesArray[3]."',P5TotalPoints = P5TotalPoints + '".$VotesArray[4]."' WHERE gameID = '".$g."'";
+
+//1) get votes for A,B,C,D,E
+//2) apply those votes to the authors 
+//-----------------------------------//
+//to apply votes to authors
+$OrderedArray[$A_Author] = $A ; //associates votes of Roast A with slot corresponding to author number
+$OrderedArray[$B_Author] = $B ; 
+$OrderedArray[$C_Author] = $C ;
+$OrderedArray[$D_Author] = $D ;
+$OrderedArray[$E_Author] = $E ;
+
+$sql1 = "UPDATE GameObject SET P1TotalPoints = P1TotalPoints + '".$OrderedArray[0]."',P2TotalPoints = P2TotalPoints + '".$OrderedArray[1]."',P3TotalPoints = P3TotalPoints + '".$OrderedArray[2]."',P4TotalPoints = P4TotalPoints + '".$OrderedArray[3]."',P5TotalPoints = P5TotalPoints + '".$OrderedArray[4]."' WHERE gameID = '".$g."'";
 if ($conn->query($sql1) === TRUE) {
 } else {
  echo "Error: " . $sql1 . "<br>" . $conn->error;
