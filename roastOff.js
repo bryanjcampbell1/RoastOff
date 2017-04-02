@@ -270,14 +270,14 @@ function clearDivs() {
 
   jQuery(function ($) {
     //var fiveMinutes = 60 * .2,
-    var fiveMinutes = 60,  //test 
+    var fiveMinutes = 60*.2,  //test 
         display = $('#counter');
     startTimer(fiveMinutes, display);
   });
 
     //setTimeout(GetRoasts, 60*.2*1000);
     //setTimeout(OrderRoasts, 55*1000);
-    setTimeout(OrderRoasts, 60*1000+2); //test -->gives 60 s to enter roast
+    setTimeout(OrderRoasts, .2*60*1000+2); //test -->gives 60 s to enter roast
 
 }
 
@@ -385,23 +385,25 @@ var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
 
 //segue should ralistically be triggered by votes coming in 
  // setTimeout(GetRoundWinner, 14000);
- setTimeout(GetRoundWinner, 60*1000); //gives 1 minute for users to vote
+ setTimeout(GetRoundWinner, 20*1000); //gives 1 minute for users to vote
 
 }
 
 function GetRoundWinner (id) {
+
       var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-               newPointsArray  =  $.parseJSON(xmlhttp.responseText);
-               setUsernameRank();
+               //newPointsArray  =  $.parseJSON(xmlhttp.responseText);
+               //setUsernameRank();
 
-               showRoundWinner() ;
+                alert("inside"); //problrm 
+               //showRoundWinner() ;
 
             }
         };
-        xmlhttp.open("GET", "GetPoints.php?g=" + joinCode, true);
+        xmlhttp.open("GET", "GetPoints1.php?g=" + joinCode, true);
         xmlhttp.send();
 
 

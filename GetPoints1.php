@@ -70,47 +70,12 @@ while($row = $result->fetch_assoc()){
 
 }
 
-
-//update points
-for( $i = 0; $i = <5; $i ++){
-
-	$AuthorArray[i];
-	$VotesArray[i]; //numbers or strings?  and does it matter?
-
-/*
-	if ($AuthorArray[i] == 1) {//Player1 created roast
-
-		$OrderedArray[0] = $VotesArray[i];
-
-	} 
-
-	elseif ($AuthorArray[i] == 2) {
-
-		$OrderedArray[1] = $VotesArray[i];
-
-	} elseif ($AuthorArray[i] == 3) {
-
-		$OrderedArray[2] = $VotesArray[i];
-
-	} elseif ($AuthorArray[i] == 4) {
-
-		$OrderedArray[3] = $VotesArray[i];
-
-	} elseif ($AuthorArray[i] == 5) {
-
-		$OrderedArray[4] = $VotesArray[i];
-    
-	} else {
-		echo "somethings is wrong with AuthorArray";
-	}*/
-
-    $sql1 = "UPDATE GameObject SET P".$AuthorArray[i]."TotalPoints = P".$AuthorArray[i]."TotalPoints + '".$VotesArray[i]."' WHERE gameID = '".$g."'";
-    if ($conn->query($sql1) === TRUE) {
-	} else {
-	    echo "Error: " . $sql1 . "<br>" . $conn->error;
-	}
-
+$sql1 = "UPDATE GameObject SET P1TotalPoints = P1TotalPoints + '".$VotesArray[0]."',P2TotalPoints = P2TotalPoints + '".$VotesArray[1]."',P3TotalPoints = P3TotalPoints + '".$VotesArray[2]."',P4TotalPoints = P4TotalPoints + '".$VotesArray[3]."',P5TotalPoints = P5TotalPoints + '".$VotesArray[4]."' WHERE gameID = '".$g."'";
+if ($conn->query($sql1) === TRUE) {
+} else {
+ echo "Error: " . $sql1 . "<br>" . $conn->error;
 }
+
 
 
 $jsonArray = json_encode($OrderedArray);
