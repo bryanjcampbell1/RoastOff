@@ -205,7 +205,9 @@ function startPage (id) {
 
 
 //setTimeout(clearDivs, 6000);
-  setTimeout(chooseGamePics, 6000);
+
+
+  setTimeout(chooseGamePics, 36000);
 }
 
 
@@ -216,6 +218,11 @@ function chooseGamePics(id) {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
               var foundUser =  xmlhttp.responseText;
+              allUsernamesArray  =  $.parseJSON(xmlhttp.responseText); //returns list of all players
+
+              alert("here");
+              alert(allUsernamesArray.length);
+
               getPics();
 
             }
@@ -293,6 +300,8 @@ function startTimer(duration, display) {
 
 function OrderRoasts (id) {
 
+  var number = allUsernamesArray.length;
+
   var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -301,7 +310,7 @@ function OrderRoasts (id) {
 
             }
         };
-        xmlhttp.open("GET", "OrderRoasts1.php?g=" + joinCode, true);
+        xmlhttp.open("GET", "OrderRoasts1.php?g=" + joinCode + "&r=" + roundCounter + "&n=" + number, true);
         xmlhttp.send();
 }
 
@@ -329,11 +338,11 @@ function GetRoasts (id) {
 function showRoasts (id) {
   $( "div" ).remove();
 
-  roast1 = "A) " + RoastsArray[1];
-  roast2 = "B) " + RoastsArray[2];
-  roast3 = "C) " + RoastsArray[3];
-  roast4 = "D) " + RoastsArray[4];
-  roast5 = "E) " + RoastsArray[5];
+  roast1 = "A) " + RoastsArray[0];
+  roast2 = "B) " + RoastsArray[1];
+  roast3 = "C) " + RoastsArray[2];
+  roast4 = "D) " + RoastsArray[3];
+  roast5 = "E) " + RoastsArray[4];
 
 var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
 
@@ -353,10 +362,26 @@ var allRoasts = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4;
 
 
 //use jQuery instead to fade in roastText
+
   var t1 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast2; }, 3000);
   var t2 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast3; }, 6000);
-  var t3 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast4; }, 9000);
-  var t4 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4; }, 12000);
+  
+  if(allUsernamesArray.length == 3){
+    var t3 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast1 +'<br>' + roast2 +'<br>'+ roast3; }, 9000);
+  }
+
+  if(allUsernamesArray.length == 4){
+  var t4 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast4; }, 12000);
+  var t5 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast1 +'<br>' + roast2 +'<br>'+ roast3 +"<br>" + roast4; }, 15000);
+  }
+
+  if(allUsernamesArray.length == 5){
+  var t4 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast4; }, 12000);
+  var t5 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast5; }, 15000);
+  var t6 = setTimeout(function(){ document.getElementById("roastText").innerHTML = roast1 +'<br>' + roast2 +'<br>'+ roast3 + "<br>" + roast4+"<br>" + roast5; }, 18000);
+  }
+
+  
 
 //segue should ralistically be triggered by votes coming in 
  // setTimeout(GetRoundWinner, 14000);

@@ -15,6 +15,7 @@ if ($conn->connect_error) {
 
 $g=  $_REQUEST["g"]; 
 $r=  $_REQUEST["r"]; 
+$n=  $_REQUEST["n"];
 
 $A;
 $B;
@@ -53,29 +54,71 @@ while($row = $result->fetch_assoc()){
 	$fourthNumber;
 	$fifthNumber;
 
-	$random = rand(0, 4);
+	//if there are 3 players
+	if($n == 3){
 
-	$firstNumber = $random;
-	
-	while ($firstNumber == $random) {
-		$random = rand(0, 4); //reset random
-		$secondNumber = $random; //use random number to set second number
-	} //go back to top of loop to check if random number has already been used
+			$random = rand(0, 2);
+			$firstNumber = $random;
+			
+			while ($firstNumber == $random) {
+				$random = rand(0, 2); //reset random
+				$secondNumber = $random; //use random number to set second number
+			} //go back to top of loop to check if random number has already been used
 
-	while (($firstNumber == $random) || ($secondNumber == $random)) {
-		$random = rand(0, 4); 
-		$thirdNumber = $random; 
-	} 
+			while (($firstNumber == $random) || ($secondNumber == $random)) {
+				$random = rand(0, 2); 
+				$thirdNumber = $random; 
+			} 
+				$fourthNumber = 3; 
+				$fifthNumber = 4; 
+	}
+	else if($n == 4){
+			$random = rand(0, 3);
 
-	while (($firstNumber == $random) || ($secondNumber == $random) || ($thirdNumber == $random)) {
-		$random = rand(0, 4); 
-		$fourthNumber = $random; 
-	} 
+			$firstNumber = $random;
+			
+			while ($firstNumber == $random) {
+				$random = rand(0, 3); //reset random
+				$secondNumber = $random; //use random number to set second number
+			} //go back to top of loop to check if random number has already been used
 
-	while (($firstNumber == $random) || ($secondNumber == $random) || ($thirdNumber == $random) || ($fourthNumber == $random) ) {
-		$random = rand(0, 4); 
-		$fifthNumber = $random; 
-	} 
+			while (($firstNumber == $random) || ($secondNumber == $random)) {
+				$random = rand(0, 3); 
+				$thirdNumber = $random; 
+			} 
+
+			while (($firstNumber == $random) || ($secondNumber == $random) || ($thirdNumber == $random)) {
+				$random = rand(0, 3); 
+				$fourthNumber = $random; 
+			} 
+				$fifthNumber = 4; 
+	}
+	else{
+			$random = rand(0, 4);
+
+			$firstNumber = $random;
+			
+			while ($firstNumber == $random) {
+				$random = rand(0, 4); //reset random
+				$secondNumber = $random; //use random number to set second number
+			} //go back to top of loop to check if random number has already been used
+
+			while (($firstNumber == $random) || ($secondNumber == $random)) {
+				$random = rand(0, 4); 
+				$thirdNumber = $random; 
+			} 
+
+			while (($firstNumber == $random) || ($secondNumber == $random) || ($thirdNumber == $random)) {
+				$random = rand(0, 4); 
+				$fourthNumber = $random; 
+			} 
+
+			while (($firstNumber == $random) || ($secondNumber == $random) || ($thirdNumber == $random) || ($fourthNumber == $random) ) {
+				$random = rand(0, 4); 
+				$fifthNumber = $random; 
+			}
+	}
+ 
 
 	$A = $round1Array[$firstNumber];
 	$B = $round1Array[$secondNumber];

@@ -397,7 +397,7 @@ function goToVote() {
                '</div>'; 
                 
 
-    var $jloginField = $(loginField);
+  var $jloginField = $(loginField);
   $("body").append($jloginField);
 
 

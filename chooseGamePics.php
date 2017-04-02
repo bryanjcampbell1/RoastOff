@@ -31,6 +31,11 @@ $player8;
 $player9;
 $player10;
 
+$playerName1;
+$playerName2;
+$playerName3;
+$playerName4;
+$playerName5;
 
 
 
@@ -45,6 +50,12 @@ $sql = "SELECT * FROM  `GameObject` WHERE `gameID` = '".$g."'";
 
 //determine how many pics were submitted
 while($row = $result->fetch_assoc()){
+	$playerName1 = $row['player1'] ;
+	$playerName2 = $row['player2'] ;
+	$playerName3 = $row['player3'] ;
+	$playerName4 = $row['player4'] ;
+	$playerName5 = $row['player5'] ;
+
 	
 	$player1 =  $row['picturePath1'] ;
 	$player2 =  $row['picturePath2'] ;
@@ -110,7 +121,7 @@ while($row = $result->fetch_assoc()){
 				$sql_a = "UPDATE GameObject SET picturePath1 = '".$path."' WHERE gameID = '".$g."'";
 				
 				if ($conn->query($sql_a) === TRUE) {
-			    	echo "New record created successfully";
+			    	//echo "New record created successfully";
 				} else {
 				    echo "Error: " . $sql1 . "<br>" . $conn->error;
 				}
@@ -123,7 +134,7 @@ while($row = $result->fetch_assoc()){
 				$sql_a = "UPDATE GameObject SET picturePath2 = '".$path."' WHERE gameID = '".$g."'";
 				
 				if ($conn->query($sql_a) === TRUE) {
-			    	echo "New record created successfully";
+			    	//echo "New record created successfully";
 				} else {
 				    echo "Error: " . $sql1 . "<br>" . $conn->error;
 				}
@@ -136,7 +147,7 @@ while($row = $result->fetch_assoc()){
 				$sql_a = "UPDATE GameObject SET picturePath3 = '".$path."' WHERE gameID = '".$g."'";
 				
 				if ($conn->query($sql_a) === TRUE) {
-			    	echo "New record created successfully";
+			    	//echo "New record created successfully";
 				} else {
 				    echo "Error: " . $sql1 . "<br>" . $conn->error;
 				}
@@ -191,7 +202,7 @@ $sql1 = "UPDATE GameObject SET gamePic1 = '".$gamePic1."' WHERE gameID = '".$g."
 
 
 if ($conn->query($sql1) === TRUE) {
-    echo "New record created successfully";
+   // echo "New record created successfully";
 } else {
     echo "Error: " . $sql1 . "<br>" . $conn->error;
 }
@@ -200,7 +211,7 @@ $sql2 = "UPDATE GameObject SET gamePic2 = '".$gamePic2."' WHERE gameID = '".$g."
 
 
 if ($conn->query($sql2) === TRUE) {
-    echo "New record created successfully";
+   // echo "New record created successfully";
 } else {
     echo "Error: " . $sql2 . "<br>" . $conn->error;
 }
@@ -209,11 +220,37 @@ $sql3 = "UPDATE GameObject SET gamePic3 = '".$gamePic3."' WHERE gameID = '".$g."
 
 
 if ($conn->query($sql3) === TRUE) {
-    echo "New record created successfully";
+   // echo "New record created successfully";
 } else {
     echo "Error: " . $sql3 . "<br>" . $conn->error;
 }
 
+//------------------------------return list of players----------------------------//
+
+//-----------------------------------------------------------------------------------//
+
+$Array = array();
+
+if (!empty($playerName1)) { //add it to $Array
+$Array[] = $playerName1;
+}
+if (!empty($playerName2)) { //add it to $Array
+$Array[] = $playerName2;
+}
+if (!empty($playerName3)) { //add it to $Array
+$Array[] = $playerName3;
+}
+if (!empty($playerName4)) { //add it to $Array
+$Array[] = $playerName4;
+}
+if (!empty($playerName5)) { //add it to $Array
+$Array[] = $playerName5;
+}
+
+
+$jsonArray = json_encode($Array); //problem is this will spi out " " for no name entries
+
+echo $jsonArray;
 $conn->close();
 
 ?>
