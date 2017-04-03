@@ -11,7 +11,7 @@ var allUsernamesArray = []; //needs to query DB and populate
 var usernameRank = []; 
 var newPointsArray    = [0,0,0,0,0]; //holds points added from latest round
 var TotalPointsArray  = [0,0,0,0,0]; //holds total points
-
+var OrderedNewPointsArray    = [0,0,0,0,0]; //holds points added from latest round
  //var should be set from an array of submitted roasts
 var roast1 = "Who am I?  A hiphop Asian teenager.";
 var roast2 = "Ity looks like you couldnt throw a rock passed your dick.";
@@ -403,6 +403,7 @@ function GetRoundWinner (id) {
                // alert(allUsernamesArray.length);
 
                usernameRank[0] = allUsernamesArray[largestIndex];
+               OrderedNewPointsArray[0] = newPointsArray[largestIndex];
                
 
                 showRoundWinner() ;
@@ -472,7 +473,7 @@ function showRoundWinner (id) {
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="pointsLabel">'+ 
-                  "+"+newPointsArray[0]*50 +" POINTS!"+
+                  "+"+OrderedNewPointsArray[0]*50 +" POINTS!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>';
