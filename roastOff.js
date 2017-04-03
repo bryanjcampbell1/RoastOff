@@ -270,14 +270,14 @@ function clearDivs() {
 
   jQuery(function ($) {
     //var fiveMinutes = 60 * .2,
-    var fiveMinutes = 60*.2,  //test 
+    var fiveMinutes = 60*.4,  //test 
         display = $('#counter');
     startTimer(fiveMinutes, display);
   });
 
     //setTimeout(GetRoasts, 60*.2*1000);
     //setTimeout(OrderRoasts, 55*1000);
-    setTimeout(OrderRoasts, .2*60*1000+2); //test -->gives 60 s to enter roast
+    setTimeout(OrderRoasts, .4*60*1000+2); //test -->gives 60 s to enter roast
 
 }
 
@@ -310,7 +310,7 @@ function OrderRoasts (id) {
 
             }
         };
-        xmlhttp.open("GET", "OrderRoasts1.php?g=" + joinCode + "&r=" + roundCounter + "&n=" + number, true);
+        xmlhttp.open("GET", "OrderRoasts1.php?g=" + joinCode + "&r=" + roundCounter + "&n=" + number, true); 
         xmlhttp.send();
 }
 
@@ -331,7 +331,7 @@ function GetRoasts (id) {
 
             }
         };
-        xmlhttp.open("GET", "GetRoasts.php?g=" + joinCode, true);
+        xmlhttp.open("GET", "GetRoasts.php?g=" + joinCode, true); 
         xmlhttp.send();
 }
 
@@ -481,9 +481,25 @@ function showRoundWinner (id) {
  $("body").append($jloginField);
 
  roundCounter = roundCounter + 1;
+ newPointsArray    = [0,0,0,0,0];
+ RoastsArray = ["","","","",""];
 
  if (roundCounter < 4){
-    setTimeout(clearDivs, 4000);
+
+  alert("roundCounter is larger than 1!");
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              alert(xmlhttp.responseText);
+              setTimeout(clearDivs, 4000);
+
+            }
+  };
+  xmlhttp.open("POST", "reset.php?g=" + joinCode, true);
+  xmlhttp.send();
+
   }
   else{
     setTimeout(endScreen, 4000);

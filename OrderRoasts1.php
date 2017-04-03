@@ -40,11 +40,28 @@ $sql = "SELECT * FROM  `GameObject` WHERE `gameID` = '".$g."'";
 //determine how many pics were submitted
 while($row = $result->fetch_assoc()){
 
-	$A =  $row['P1R1'] ;
-	$B =  $row['P2R1'] ;
-	$C =  $row['P3R1'] ;
-	$D =  $row['P4R1'] ;
-	$E =  $row['P5R1'] ;
+	if($r ==1 ){
+		$A =  $row['P1R1'] ;
+		$B =  $row['P2R1'] ;
+		$C =  $row['P3R1'] ;
+		$D =  $row['P4R1'] ;
+		$E =  $row['P5R1'] ;
+	}
+	if($r ==2 ){
+		$A =  $row['P1R2'] ;
+		$B =  $row['P2R2'] ;
+		$C =  $row['P3R2'] ;
+		$D =  $row['P4R2'] ;
+		$E =  $row['P5R2'] ;
+	}
+	if($r ==3 ){
+		$A =  $row['P1R3'] ;
+		$B =  $row['P2R3'] ;
+		$C =  $row['P3R3'] ;
+		$D =  $row['P4R3'] ;
+		$E =  $row['P5R3'] ;
+	}
+
 
 	$round1Array = array($A,$B,$C,$D,$E);
 
