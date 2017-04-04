@@ -482,12 +482,12 @@ function showRoundWinner (id) {
  $("body").append($jloginField);
 
  roundCounter = roundCounter + 1;
+ //TotalPointsArray[0] = TotalPointsArray[0] + newPointsArray[0];
  newPointsArray    = [0,0,0,0,0];
  RoastsArray = ["","","","",""];
 
  if (roundCounter < 4){
-
-  alert("roundCounter is larger than 1!");
+//if (roundCounter < 0){
 
     var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -503,8 +503,31 @@ function showRoundWinner (id) {
 
   }
   else{
-    setTimeout(endScreen, 4000);
+    setTimeout(getEndScreenData, 4000);
   }
+
+}
+
+function getEndScreenData (id) {
+
+
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+              //alert(xmlhttp.responseText);
+               TotalPointsArray  =  $.parseJSON(xmlhttp.responseText);
+
+               endScreen() ;
+
+            }
+  };
+  xmlhttp.open("GET", "getFinalPoints.php?g=" + joinCode, true);
+  xmlhttp.send();
+
+//setTimeout(getEndScreenData, 4000);
+
 
 }
 
@@ -512,6 +535,11 @@ function endScreen (id) {
   $( "div" ).remove();
 
   roundCounter = 1;
+
+//chose 
+  var largest = indexOfMax(TotalPointsArray);
+  usernameRank[0] = allUsernamesArray[largest];
+  
 
   var loginField;
   //add button in nav bar to go back to main 
@@ -525,13 +553,13 @@ function endScreen (id) {
               '</div>'+//row 1 end
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
-                '<div class="col-md-8" id="gameWinner">'+ "kingsnackman"+"!"+'</div>'+ 
+                '<div class="col-md-8" id="gameWinner">'+ usernameRank[0]+"!"+'</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
               '</div>'+ 
               '<div class="row " >' +
                 '<div class="col-md-2">'+ '</div>' + 
                 '<div class="col-md-8" id="pointsLabel">'+ 
-                  "+"+"150" +"POINTS!"+
+                  TotalPointsArray[largest]*50 +"  POINTS!"+
                 '</div>'+ 
                 '<div class="col-md-2" >'+ '</div>'+
                 '</div>'+
