@@ -739,10 +739,28 @@ function rankPoints(a,b,c,d,e,f) {
 //-------------------------Ideas------------------------------------------//
 /*
 
-    After game ends show winner, 2nd place, most popular roast
+    0) upload to github
+
+    1) After game ends show winner, 2nd place, most popular roast
+    2) join game through qr code
+
+    Styling 
+    -------
+    1) Change Roastoff Test
+    2) Add flames to mobile background
+    3) Make Front page background slowly increase in size
+    4) change side and look of table cells -->look up custom tableview celss js
+       --> could have flame slowly increase and decrease size
+    5) add flame image for loading pic instead of weid "Loading" graphic 
+    6) remove show winner on mobile 
+    7) lift green bar on roast screen
+    8) remove pics from mobile?
+    9) center pics on mobile
+
 
 */
 //-------------------------Ideas------------------------------------------//
+
 
 
 
